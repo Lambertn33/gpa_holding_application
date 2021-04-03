@@ -1,0 +1,85 @@
+/********** IE **********/
+
+*::-ms-backdrop, .col-xl-12 .card-body {
+   height:100%;
+}
+
+*::-ms-backdrop, .col-md-12.col-lg-4 .card-body {
+    height:100%;
+}
+
+*::-ms-backdrop, .card.box-shadow-0 .card-body {
+	height:100%;
+}
+
+*::-ms-backdrop, .card.box-shadow-0 img {
+	height:100%;
+}
+
+*::-ms-backdrop, .mail-chats li.chat-persons{
+    height:100%;
+}
+
+*::-ms-backdrop, .card-item {
+ height:100%;
+}
+
+*::-ms-backdrop, .custom-control-label{
+   position:static;
+}
+
+*::-ms-backdrop, .lds-gear{
+    width:inherit !important;
+}
+
+*::-ms-backdrop, .pro-img-box{
+    height:100%;
+}
+
+*::-ms-backdrop, .horizontalMenu > .horizontalMenu-list > li > a .icon_img {
+    width: 20px;
+}
+
+*::-ms-backdrop, .owl-carousel .owl-item img{
+    height:inherit;
+} 
+
+*::-ms-backdrop, .product-hover {
+    height:100%;
+}
+
+*::-ms-backdrop, .card-img-top.img1 {
+     height:183px;
+}
+
+*::-ms-backdrop, .about-1 {
+    height:183px;
+}
+*::-ms-backdrop, .popup-messages .direct-chat-body{
+	align-items:stretch !important;
+}
+*::-ms-backdrop, .popup-messages .right .direct-chat-body{
+	align-items:inherit !important;
+}
+*::-ms-backdrop, .chat-message-popup.card-fullscreen .popup-messages .direct-chat-body{
+	align-items:flex-start !important;
+}
+*::-ms-backdrop, .chat-message-popup.card-fullscreen .popup-messages .right .direct-chat-body{
+	align-items:flex-end !important;
+}
+
+*::-ms-backdrop, html.fullscreen-button{
+	width:100%;
+}
+*::-ms-backdrop, html.fullscreen-button .main-content{
+	overflow:scroll;
+	overflow-x:hidden;
+	height:100vh;
+}
+*::-ms-backdrop, html.fullscreen-button .app-content{
+	overflow:scroll;
+	overflow-x:hidden;
+	height:100vh;
+}
+
+/********** IE **********/

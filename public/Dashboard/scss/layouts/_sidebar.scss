@@ -1,0 +1,26 @@
+/*----- Sidebar ------*/
+
+.sidebar-right .avatar-list ul li {
+	display: inline-block;
+	margin-right: 12px;
+	a:hover {
+		color: $white !important;
+	}
+}
+
+.app.sidebar-mini {
+	.panel sidetab-menu a {
+		transition: opacity .3s ease .2s, transform .4s ease .2s;
+		opacity: 0;
+		-webkit-transform: translateX(-30px);
+		-moz-transform: translateX(-30px);
+		transform: translateX(-30px);
+	}
+}
+.sidebar .list-group-item:hover, .sidebar .list-group-item:focus{
+	background:transparent !important;
+	border-bottom:0 !important;
+}
+.sidebar .list-group-flush>.list-group-item{
+	border-width:0 0 0px !important;
+}
