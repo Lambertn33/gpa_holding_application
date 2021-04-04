@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Client;
 use App\Product;
+use App\User;
 
 class ClientController extends Controller
 {
@@ -14,13 +15,15 @@ class ClientController extends Controller
         $allClients = Client::get();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.clients.index',compact('allClients','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.clients.index',compact('allClients','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function getNewClientRegistrationPage()
     {
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
-        return view('Dashboard.clients.create',compact('numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.clients.create',compact('numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function NewClientRegistration(Request $request)
     {
@@ -72,7 +75,8 @@ class ClientController extends Controller
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
         $clientToEdit = Client::find($id);
-        return view('Dashboard.clients.edit',compact('clientToEdit','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.clients.edit',compact('clientToEdit','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function clientUpdate($id , Request $request)
     {

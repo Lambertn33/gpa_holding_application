@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Product;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,7 @@ class HomeController extends Controller
     {
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.home.home',compact('numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.home.home',compact('numberOfClients','numberOfProducts','numberOfUsers'));
     }
 }

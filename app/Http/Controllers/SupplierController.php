@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Supplier;
 use App\Product;
 use App\Client;
+use App\User;
 
 class SupplierController extends Controller
 {
@@ -15,14 +16,16 @@ class SupplierController extends Controller
         $allSuppliers = Supplier::get();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.stock.suppliers.index',compact('allSuppliers','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.stock.suppliers.index',compact('allSuppliers','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function getNewSupplierRegistrationPage()
     {
         $allProducts = Product::get();
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
-        return view('Dashboard.stock.suppliers.create',compact('numberOfClients','numberOfProducts','allProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.stock.suppliers.create',compact('numberOfClients','numberOfProducts','allProducts','numberOfUsers'));
     }
     function validatePhoneNumber($telNo)
     {
@@ -66,7 +69,8 @@ class SupplierController extends Controller
             $numberOfProducts = Product::count();
             $numberOfClients = Client::count();
             $supplierToEdit =  Supplier::find($id);
-            return view('Dashboard.stock.suppliers.edit',compact('numberOfClients','numberOfProducts','supplierToEdit'));
+            $numberOfUsers = User::count();
+            return view('Dashboard.stock.suppliers.edit',compact('numberOfClients','numberOfProducts','supplierToEdit','numberOfUsers'));
         }
         public function SupplierUpdate($id , Request $request)
         {

@@ -8,6 +8,7 @@ use App\Supplier;
 use App\Product;
 use App\Client;
 use App\Stock;
+use App\User;
 
 class StockController extends Controller
 {
@@ -16,7 +17,8 @@ class StockController extends Controller
         $allStock = Stock::get();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.stock.index',compact('allStock','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.stock.index',compact('allStock','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function getNewStockRegistrationPage()
     {
@@ -24,7 +26,8 @@ class StockController extends Controller
         $numberOfProducts = Product::count();
         $allProducts = Product::get();
         $allSuppliers = Supplier::get();
-        return view('Dashboard.stock.create',compact('numberOfClients','numberOfProducts','allProducts','allSuppliers'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.stock.create',compact('numberOfClients','numberOfProducts','allProducts','allSuppliers','numberOfUsers'));
 
     }
     public function NewStockRegistration(Request $request)
@@ -61,7 +64,8 @@ class StockController extends Controller
         $allProducts = Product::get();
         $allSuppliers = Supplier::get();
         $stockToEdit = Stock::find($id);
-        return view('Dashboard.stock.edit',compact('numberOfClients','numberOfProducts','allProducts','allSuppliers','stockToEdit'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.stock.edit',compact('numberOfClients','numberOfProducts','allProducts','allSuppliers','stockToEdit','numberOfUsers'));
     }
     public function StockUpdate(Request $request , $id)
     {

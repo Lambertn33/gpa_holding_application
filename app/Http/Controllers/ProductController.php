@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Client;
 use App\Category;
+use App\User;
 use Illuminate\Support\Str;
 
 
@@ -16,14 +17,16 @@ class ProductController extends Controller
         $allProducts = Product::with('category')->get();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.products.index',compact('allProducts','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.products.index',compact('allProducts','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function getNewProductRegistrationPage()
     {
         $allCategories = Category::get();
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
-        return view('Dashboard.products.create',compact('numberOfClients','numberOfProducts','allCategories'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.products.create',compact('numberOfClients','numberOfProducts','allCategories','numberOfUsers'));
     }
     public function NewProductRegistration(Request $request)
     {
@@ -53,7 +56,8 @@ class ProductController extends Controller
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
         $productToEdit = Product::find($id);
-        return view('Dashboard.products.edit',compact('productToEdit','numberOfClients','numberOfProducts','allCategories'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.products.edit',compact('productToEdit','numberOfClients','numberOfProducts','allCategories','numberOfUsers'));
     }
     public function productUpdate($id , Request $request)
     {

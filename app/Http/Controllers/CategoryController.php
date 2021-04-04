@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Client;
 use App\Category;
 use App\Product;
+use App\User;
 use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
@@ -14,13 +15,15 @@ class CategoryController extends Controller
         $allCategories = Category::get();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.categories.index',compact('allCategories','numberOfClients','numberOfProducts'));
+        $numberOfUsers = User::count();
+        return view('Dashboard.categories.index',compact('allCategories','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function getNewCategoryRegistrationPage()
     {
+        $numberOfUsers = User::count();
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
-        return view('Dashboard.categories.create',compact('numberOfClients','numberOfProducts'));
+        return view('Dashboard.categories.create',compact('numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function NewCategoryRegistration(Request $request)
     {
@@ -48,8 +51,9 @@ class CategoryController extends Controller
     {
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
         $categoryToEdit = Category::find($id);
-        return view('Dashboard.categories.edit',compact('categoryToEdit','numberOfClients','numberOfProducts'));
+        return view('Dashboard.categories.edit',compact('categoryToEdit','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function CategoryUpdate($id , Request $request)
     {

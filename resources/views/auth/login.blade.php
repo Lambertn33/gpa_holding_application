@@ -65,6 +65,16 @@
                                     @csrf
                                     <div class="card-body p-6 about-con pabout">
                                         <div class="card-title text-center  mb-4">LOGIN</div>
+                                        @foreach (['danger', 'warning', 'success', 'info'] as $msg) @if(Session::has($msg))
+
+                                        <div class="alert alert-{{ $msg }}  alert-dismissible fade show" role="alert">
+                                            {{ Session::get($msg) }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                                 </button>
+                                        </div>
+                                        @endif
+                                       @endforeach
                                         <div class="form-group">
                                             <input type="email" name="email" id="email" class="form-control  @error('email') is-invalid @enderror" placeholder="Email" >
                                             @error('email')

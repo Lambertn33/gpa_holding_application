@@ -169,7 +169,7 @@
                                         <a  href=""><i class="bx bx-book-reader hor-icon"></i>Reports</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-user hor-icon"></i>Users</a>
+                                        <a  href="{{ route('getAllUsers') }}"><i class="bx bx-user hor-icon"></i>Users</a>
                                     </li>
                                     <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-customize hor-icon"></i>Settings</a>
@@ -257,11 +257,11 @@
                                         <div class="card-body">
                                             <div class="d-flex align-items-end justify-content-between">
                                                 <div>
-                                                    <p class="mb-1 h6">Invoices</p>
-                                                    <h2 class="mb-0"><span class="number-font1">$25,361</span></h2>
+                                                    <p class="mb-1 h6">Users</p>
+                                                    <h2 class="mb-0"><span class="number-font1">{{ $numberOfUsers }}</span></h2>
                                                 </div>
                                                 <div class="ml-auto mb-2">
-                                                    <span class="dash1-iocns text-primary"><i class="fe fe-dollar-sign"></i></span>
+                                                    <span class="dash1-iocns text-primary"><i class="fe fe-user"></i></span>
                                                 </div>
                                             </div>
                                         </div>

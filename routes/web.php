@@ -66,6 +66,14 @@ Route::get('/home/stock/{id}/edit','StockController@getStockEditPage')->name('st
 Route::put('/home/stock/{id}/edit','StockController@StockUpdate')->name('stockUpdate');
 Route::get('/home/stock/{id}/delete','StockController@stockDeletion')->name('stockDeletion');
 
+//Users Route
+Route::get('/home/users','UserController@getAllUsers')->name('getAllUsers');
+Route::get('/home/users/create','UserController@getNewUserRegistrationPage')->name('getNewUserRegistrationPage');
+Route::post('/home/users/create','UserController@NewUserRegistration')->name('NewUserRegistration');
+Route::get('/home/users/{id}/edit','UserController@getUserEditPage')->name('userEditPage');
+Route::put('/home/users/{id}/edit','UserController@userUpdate')->name('userUpdate');
+Route::get('/home/users/{id}/editStatus','UserController@userUpdateStatus')->name('userUpdateStatus');
+
 });
 
 
