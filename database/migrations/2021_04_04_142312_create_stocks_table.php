@@ -21,6 +21,7 @@ class CreateStocksTable extends Migration
             $table->bigInteger('buying_price');
             $table->bigInteger('selling_price')->nullable();
             $table->date('date');
+            $table->string('entry_by')->nullable();
             $table->timestamps();
         });
     }

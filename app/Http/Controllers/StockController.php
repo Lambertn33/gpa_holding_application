@@ -9,6 +9,7 @@ use App\Product;
 use App\Client;
 use App\Stock;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -43,6 +44,7 @@ class StockController extends Controller
         if(!is_numeric($stockQuantity) || !is_numeric($stockBuyingPrice)){
             return back()->withInput()->with('danger','The stock quantity and the stock buying price must be numeric');
         }
+        $userNames = Auth::user()->first_Name . ' ' . Auth::user()->lastName.' '.(Auth::user()->role);
         $newStock = Stock::create([
             'id'=> Str::uuid()->toString(),
             'product'=>$stockProduct,
@@ -50,7 +52,8 @@ class StockController extends Controller
             'quantity'=>$stockQuantity,
             'buying_price'=>$stockBuyingPrice,
             'date'=>$stockEntryDate,
-            'selling_price'=>600
+            'selling_price'=>600,
+            'entry_by'=>$userNames
             ]);
             if($newStock){
                 return redirect()->route('getAllStock')->with('success','New Stock Registered Successfully');

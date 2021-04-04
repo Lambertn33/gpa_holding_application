@@ -13,7 +13,8 @@ class Stock extends Model
       'quantity',
       'buying_price',
       'selling_price',
-      'date'
+      'date',
+      'entry_by'
     ];
     protected $casts = [
         'id' => 'string',
