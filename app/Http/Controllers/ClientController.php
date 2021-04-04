@@ -105,7 +105,7 @@ class ClientController extends Controller
           if(!empty($clientPhoneNo)){
               if($checkPhoneNo->exists()){
                   if($checkPhoneNo->value('id')!== $id){
-                      return back()->with('danger','email provided already exists');
+                      return back()->with('danger','Telephone Number provided already exists');
                   }
               }
           }

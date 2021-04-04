@@ -48,5 +48,24 @@ Route::post('/home/products/create','ProductController@NewProductRegistration')-
 Route::get('/home/products/{id}/edit','ProductController@getProductEditPage')->name('productEditPage');
 Route::put('/home/products/{id}/edit','ProductController@ProductUpdate')->name('productUpdate');
 Route::get('/home/products/{id}/delete','ProductController@productDeletion')->name('productDeletion');
+
+
+//suppliers Route
+Route::get('/home/suppliers','SupplierController@getSuppliersPage')->name('getAllSuppliers');
+Route::get('/home/suppliers/create','SupplierController@getNewSupplierRegistrationPage')->name('getNewSupplierRegistrationPage');
+Route::post('/home/suppliers/create','SupplierController@NewSupplierRegistration')->name('NewSupplierRegistration');
+Route::get('/home/suppliers/{id}/edit','SupplierController@getSupplierEditPage')->name('supplierEditPage');
+Route::put('/home/suppliers/{id}/edit','SupplierController@SupplierUpdate')->name('supplierUpdate');
+Route::get('/home/suppliers/{id}/delete','SupplierController@supplierDeletion')->name('supplierDeletion');
+
+//Stock Route
+Route::get('/home/stock','StockController@getStockPage')->name('getAllStock');
+Route::get('/home/stock/create','StockController@getNewStockRegistrationPage')->name('getNewStockRegistrationPage');
+Route::post('/home/stock/create','StockController@NewStockRegistration')->name('NewStockRegistration');
+Route::get('/home/stock/{id}/edit','StockController@getStockEditPage')->name('stockEditPage');
+Route::put('/home/stock/{id}/edit','StockController@StockUpdate')->name('stockUpdate');
+Route::get('/home/stock/{id}/delete','StockController@stockDeletion')->name('stockDeletion');
+
 });
+
 

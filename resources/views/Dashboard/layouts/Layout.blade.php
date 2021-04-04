@@ -118,10 +118,25 @@
                                         <a  href="{{ route('getAllClients') }}"><i class="bx bx-happy hor-icon"></i>Clients</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href="{{ route('getAllCategories') }}"><i class="bx bx-shopping-bag hor-icon"></i>Product Categories</a>
-                                    </li>
-                                    <li aria-haspopup="true">
-                                        <a  href="{{ route('getAllProducts') }}"><i class="bx bx-shopping-bag hor-icon"></i>Products</a>
+                                        <a href="#" class="sub-icon"><i class="bx bx-shopping-bag hor-icon"></i>Products</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllCategories') }}"><i class="bx bx-shopping-bag hor-icon"></i>Product Categories</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllProducts') }}"><i class="bx bx-shopping-bag hor-icon"></i>Products</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-book-open hor-icon"></i>Invoices</a>
@@ -130,7 +145,25 @@
                                         <a  href=""><i class="bx bx-book-open hor-icon"></i>Contracts</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-book-open hor-icon"></i>Stock</a>
+                                        <a href="#" class="sub-icon"><i class="bx bx-store hor-icon"></i>Stock</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllStock') }}"><i class="bx bx-store hor-icon"></i>Stock</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllSuppliers') }}"><i class="bx bx-cart hor-icon"></i>Suppliers</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-book-reader hor-icon"></i>Reports</a>
