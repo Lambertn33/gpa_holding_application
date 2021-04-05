@@ -17,8 +17,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
           if(Auth::user()->status === "ACTIVE"){
             return redirect()->route('home');
+          }else{
+              Auth::logout();
+              return back()->with('danger','Your Account is Locked..please contact the Administrator');
           }
-          return back()->with('danger','Your Account is Locked..please contact the Administrator');
         }
         return back()->with('danger','Invalid Username Or Password');
     }

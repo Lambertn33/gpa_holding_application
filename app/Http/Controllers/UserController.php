@@ -8,6 +8,7 @@ use App\Client;
 use App\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -68,19 +69,19 @@ class UserController extends Controller
     }
     public function userUpdateStatus($id)
     {
-        $userToEdit = User::find($id);
-        if($userToEdit->value('status') === "ACTIVE"){
-            $userToEdit->update([
-                'status'=>'BLOCKED'
-            ]);
-            return back()->with('success','user Account Deactived successfully');
-        }else{
+        $userToEdit = DB::table('users')->where('id',$id);
+        $userStatus = $userToEdit->value('status');
+         if($userStatus == "BLOCKED"){
             $userToEdit->update([
                 'status'=>'ACTIVE'
             ]);
             return back()->with('success','user Account Actived successfully');
-
-        }
+         }else{
+            $userToEdit->update([
+                'status'=>'BLOCKED'
+            ]);
+            return back()->with('success','user Account Deactived successfully');
+         }
     }
     public function userUpdate($id , Request $request)
     {

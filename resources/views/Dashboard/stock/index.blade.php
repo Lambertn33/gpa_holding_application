@@ -53,7 +53,7 @@
                                 <td>{{ $item->selling_price }}</td>
                                 <td>{{ $item->buying_price }}</td>
                                 <td>{{ $item->date }}</td>
-                                <td></td>
+                                <td>{{ $item->entry_by }}</td>
                                 <td>
                                   <a href="{{ route('stockEditPage',$item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                   <a href="{{ route('stockDeletion',$item->id) }}" class="btn btn-danger btn-sm">Delete</a>

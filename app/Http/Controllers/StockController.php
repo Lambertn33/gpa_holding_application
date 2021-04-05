@@ -44,7 +44,8 @@ class StockController extends Controller
         if(!is_numeric($stockQuantity) || !is_numeric($stockBuyingPrice)){
             return back()->withInput()->with('danger','The stock quantity and the stock buying price must be numeric');
         }
-        $userNames = Auth::user()->first_Name . ' ' . Auth::user()->lastName.' '.(Auth::user()->role);
+        $userNames = Auth::user()->first_Name . ' ' . Auth::user()->lastName;
+        $userRole = Auth::user()->role;
         $newStock = Stock::create([
             'id'=> Str::uuid()->toString(),
             'product'=>$stockProduct,
@@ -53,7 +54,7 @@ class StockController extends Controller
             'buying_price'=>$stockBuyingPrice,
             'date'=>$stockEntryDate,
             'selling_price'=>600,
-            'entry_by'=>$userNames
+            'entry_by'=>$userNames .''.'('.''.$userRole.''.')'
             ]);
             if($newStock){
                 return redirect()->route('getAllStock')->with('success','New Stock Registered Successfully');
