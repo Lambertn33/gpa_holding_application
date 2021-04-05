@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\LoggedInMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,24 @@ Route::get('/home/products/{id}/edit','ProductController@getProductEditPage')->n
 Route::put('/home/products/{id}/edit','ProductController@ProductUpdate')->name('productUpdate');
 Route::get('/home/products/{id}/delete','ProductController@productDeletion')->name('productDeletion');
 
+//Users Route
+Route::get('/home/users','UserController@getAllUsers')->name('getAllUsers');
+Route::get('/home/users/create','UserController@getNewUserRegistrationPage')->name('getNewUserRegistrationPage');
+Route::post('/home/users/create','UserController@NewUserRegistration')->name('NewUserRegistration');
+Route::get('/home/users/{id}/edit','UserController@getUserEditPage')->name('userEditPage');
+Route::put('/home/users/{id}/edit','UserController@userUpdate')->name('userUpdate');
+Route::get('/home/users/{id}/editStatus','UserController@userUpdateStatus')->name('userUpdateStatus');
+
+});
+
+Route::middleware([LoggedInMiddleware::class])->group(function(){
+    //Stock Route
+Route::get('/home/stock','StockController@getStockPage')->name('getAllStock');
+Route::get('/home/stock/create','StockController@getNewStockRegistrationPage')->name('getNewStockRegistrationPage');
+Route::post('/home/stock/create','StockController@NewStockRegistration')->name('NewStockRegistration');
+Route::get('/home/stock/{id}/edit','StockController@getStockEditPage')->name('stockEditPage');
+Route::put('/home/stock/{id}/edit','StockController@StockUpdate')->name('stockUpdate');
+Route::get('/home/stock/{id}/delete','StockController@stockDeletion')->name('stockDeletion');
 
 //suppliers Route
 Route::get('/home/suppliers','SupplierController@getSuppliersPage')->name('getAllSuppliers');
@@ -57,22 +76,6 @@ Route::post('/home/suppliers/create','SupplierController@NewSupplierRegistration
 Route::get('/home/suppliers/{id}/edit','SupplierController@getSupplierEditPage')->name('supplierEditPage');
 Route::put('/home/suppliers/{id}/edit','SupplierController@SupplierUpdate')->name('supplierUpdate');
 Route::get('/home/suppliers/{id}/delete','SupplierController@supplierDeletion')->name('supplierDeletion');
-
-//Stock Route
-Route::get('/home/stock','StockController@getStockPage')->name('getAllStock');
-Route::get('/home/stock/create','StockController@getNewStockRegistrationPage')->name('getNewStockRegistrationPage');
-Route::post('/home/stock/create','StockController@NewStockRegistration')->name('NewStockRegistration');
-Route::get('/home/stock/{id}/edit','StockController@getStockEditPage')->name('stockEditPage');
-Route::put('/home/stock/{id}/edit','StockController@StockUpdate')->name('stockUpdate');
-Route::get('/home/stock/{id}/delete','StockController@stockDeletion')->name('stockDeletion');
-
-//Users Route
-Route::get('/home/users','UserController@getAllUsers')->name('getAllUsers');
-Route::get('/home/users/create','UserController@getNewUserRegistrationPage')->name('getNewUserRegistrationPage');
-Route::post('/home/users/create','UserController@NewUserRegistration')->name('NewUserRegistration');
-Route::get('/home/users/{id}/edit','UserController@getUserEditPage')->name('userEditPage');
-Route::put('/home/users/{id}/edit','UserController@userUpdate')->name('userUpdate');
-Route::get('/home/users/{id}/editStatus','UserController@userUpdateStatus')->name('userUpdateStatus');
 
 });
 

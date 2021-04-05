@@ -166,9 +166,6 @@
                                         </div>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-book-reader hor-icon"></i>Reports</a>
-                                    </li>
-                                    <li aria-haspopup="true">
                                         <a  href="{{ route('getAllUsers') }}"><i class="bx bx-user hor-icon"></i>Users</a>
                                     </li>
                                     <li aria-haspopup="true">
@@ -179,13 +176,31 @@
                                 @case("User")
                                 <ul class="horizontalMenu-list">
                                     <li aria-haspopup="true">
-                                        <a href=""><i class="bx bx-home hor-icon"></i>Home</a>
+                                        <a href="{{ route('home') }}"><i class="bx bx-home hor-icon"></i>Home</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-happy hor-icon"></i>Invoces</a>
+                                        <a  href=""><i class="bx bx-happy hor-icon"></i>Invoices</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-shopping-bag hor-icon"></i>Stock</a>
+                                        <a href="#" class="sub-icon"><i class="bx bx-store hor-icon"></i>Stock</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllStock') }}"><i class="bx bx-store hor-icon"></i>Stock</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllSuppliers') }}"><i class="bx bx-cart hor-icon"></i>Suppliers</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                                     @break

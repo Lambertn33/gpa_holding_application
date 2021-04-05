@@ -42,7 +42,7 @@
                         <tbody>
                             <?php $counter = 1 ?>
                             @foreach ($allUsers as $item)
-                            @if(Auth::user()->id !==$item->id)
+
                             <tr>
                                 <td>{{ $counter }}</td>
                                 <?php $counter++ ?>
@@ -51,7 +51,6 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->role }}</td>
                                 <td>
-                                    {{-- {{ $item->status === "ACTIVE" ? <span class="badge badge-success">Active</span> }} --}}
                                     @if($item->status === "ACTIVE")
                                     <span class="badge badge-success">Active</span>
                                     @else
@@ -59,15 +58,16 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @if(Auth::user()->id !==$item->id)
                                   <a href="{{ route('userEditPage',$item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                   @if($item->status === "ACTIVE")
                                   <a href="{{ route('userUpdateStatus',$item->id) }}" class="btn btn-danger btn-sm">Disable Account</a>
                                   @else
                                   <a href="{{ route('userUpdateStatus',$item->id) }}" class="btn btn-success btn-sm">Enable Account</a>
                                   @endif
+                                  @endif
                                 </td>
                             </tr>
-                            @endif
                             @endforeach
 
                         </tbody>
