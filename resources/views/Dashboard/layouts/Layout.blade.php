@@ -233,6 +233,9 @@
                     <!-- Page-header closed -->
 
                     <!-- row opened -->
+                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
+                    'getNewProductRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
+                    'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage'))
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!-- row opened -->
@@ -301,6 +304,7 @@
                             <!-- row closed -->
                         </div>
                     </div>
+                    @endif
 
                   @yield('content')
                 </div>
