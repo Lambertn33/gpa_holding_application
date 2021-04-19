@@ -19,11 +19,11 @@
     <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title text-lg text-blue-500">All Available Proforma</div>
+                <div class="card-title text-lg text-blue-500">All Available Receipts</div>
 
             </div>
             <div class="card-body pt-0">
-                <a href="{{ route('getNewProformaRegistrationPage') }}" class="btn btn-primary">Add New Proforma</a>
+                <a href="{{ route('getNewReceiptRegistrationPage') }}" class="btn btn-primary">Add New Receipt</a>
                 <br>
                 <br>
                 <div class="table-responsive">
@@ -32,37 +32,35 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">Client Names</th>
-                                {{-- <th class="border-bottom-0">Product Name</th>
+                                <th class="border-bottom-0">Product Name</th>
                                 <th class="border-bottom-0">Description</th>
                                 <th class="border-bottom-0">Date</th>
-                                <th class="border-bottom-0">Quantity</th>
-                                <th class="border-bottom-0">Unit Cost</th> --}}
-                                <th class="border-bottom-0">Total Cost</th>
+                                <th class="border-bottom-0">Duration</th>
+                                <th class="border-bottom-0">Total Amount</th>
                                 <th class="border-bottom-0">Action</th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             <?php $counter = 1 ?>
-                            @foreach ($allClients as $item)
-                            @if ($item->proformas->count() > 0)
+                            @foreach ($allReceipts as $item)
                             <tr>
                                 <td>{{ $counter }}</td>
                                 <?php $counter++ ?>
-                                <td>{{ $item->client_Names }}</td>
-                                {{-- <td>{{ $item->product }}</td>
-                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->client }}</td>
+                                <td>{{ $item->product }}</td>
+                                <td>Hello</td>
                                 <td>{{ $item->date }}</td>
-                                <td>{{ $item->quantity }}</td>
-                                <td>{{ $item->unit_cost }}</td> --}}
-                                <td>{{ $item->proformas->sum('total_cost') }}</td>
+                                <td>{{ $item->duration }} days</td>
+                                <td>{{ $item->amount }}</td>
                                 <td>
-                                    <a href="{{ route('getProformaDetails',$item->id) }}" class="btn btn-info">View Proformas</a>
-                                </td>
+                                     <a href="" class="btn btn-primary btn-sm">Print </a>
+                                     <a href="" class="btn btn-danger btn-sm">Delete </a>
+                                <td>
                             </tr>
-                            @endif
                             @endforeach
 
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>

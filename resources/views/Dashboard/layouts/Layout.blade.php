@@ -139,7 +139,28 @@
                                         </div>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-book-open hor-icon"></i>Invoices</a>
+                                        <a href="#" class="sub-icon"><i class="bx bx-shopping-bag hor-icon"></i>Invoices</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllInvoices') }}"><i class="bx bx-shopping-bag hor-icon"></i>Invoices</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllProformas') }}"><i class="bx bx-shopping-bag hor-icon"></i>Proforma</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllReceipts') }}"><i class="bx bx-shopping-bag hor-icon"></i>Receipts</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-book-open hor-icon"></i>Contracts</a>
@@ -179,7 +200,28 @@
                                         <a href="{{ route('home') }}"><i class="bx bx-home hor-icon"></i>Home</a>
                                     </li>
                                     <li aria-haspopup="true">
-                                        <a  href=""><i class="bx bx-happy hor-icon"></i>Invoices</a>
+                                        <a href="#" class="sub-icon"><i class="bx bx-shopping-bag hor-icon"></i>Invoices</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllInvoices') }}"><i class="bx bx-shopping-bag hor-icon"></i>Invoices</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getAllProformas') }}"><i class="bx bx-shopping-bag hor-icon"></i>Proforma</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a href="{{ route('getAllReceipts') }}"><i class="bx bx-shopping-bag hor-icon"></i>Receipts</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li aria-haspopup="true">
                                         <a href="#" class="sub-icon"><i class="bx bx-store hor-icon"></i>Stock</a>
@@ -233,14 +275,14 @@
                     <!-- Page-header closed -->
 
                     <!-- row opened -->
-                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
+                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
                     'getNewProductRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
-                    'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage'))
+                    'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage','getNewInvoiceRegistrationPage'))
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!-- row opened -->
                             <div class="row">
-                                <div class="col-sm-12 col-md-12 col-xl-3 col-lg-3">
+                                <div class="col-sm-12 col-md-12 col-xl-4 col-lg-4">
                                     <div class="card overflow-hidden">
                                         <div class="card-body">
                                             <div class="d-flex align-items-end justify-content-between">
@@ -255,7 +297,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12  col-xl-3 col-lg-3">
+                                <div class="col-sm-12 col-md-12  col-xl-4 col-lg-4">
                                     <div class="card overflow-hidden">
                                         <div class="card-body">
                                             <div class="d-flex align-items-end justify-content-between">
@@ -270,7 +312,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-xl-3 col-lg-3">
+                                <div class="col-sm-12 col-md-12 col-xl-4 col-lg-4">
                                     <div class="card overflow-hidden">
                                         <div class="card-body">
                                             <div class="d-flex align-items-end justify-content-between">
@@ -280,21 +322,6 @@
                                                 </div>
                                                 <div class="ml-auto mb-2">
                                                     <span class="dash1-iocns text-primary"><i class="fe fe-user"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-xl-3 col-lg-3">
-                                    <div class="card overflow-hidden">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div>
-                                                    <p class="mb-1 h6">Contracts</p>
-                                                    <h2 class="mb-0"><span class="number-font1">$25,361</span></h2>
-                                                </div>
-                                                <div class="ml-auto mb-2">
-                                                    <span class="dash1-iocns text-primary"><i class="fe fe-dollar-sign"></i></span>
                                                 </div>
                                             </div>
                                         </div>

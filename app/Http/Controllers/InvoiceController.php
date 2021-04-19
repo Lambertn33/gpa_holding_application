@@ -3,33 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Proforma;
+use App\Invoice;
 use App\Client;
 use App\User;
 use App\Product;
 use Illuminate\Support\Str;
 
-class ProformaController extends Controller
+class InvoiceController extends Controller
 {
-    public function getProformasPage()
+    public function getInvoicesPage()
     {
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
-        $allClients = Client::get();
-        $allProformas  = Proforma::get();
-        return view('Dashboard.invoices.proforma.index',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients'));
+        $allInvoices  = Invoice::get();
+        return view('Dashboard.invoices.index',compact('numberOfClients','numberOfProducts','numberOfUsers','allInvoices'));
     }
-    public function getNewProformaRegistrationPage()
+    public function getNewInvoiceRegistrationPage()
     {
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
         $allClients = Client::get();
         $allProducts = Product::get();
-        return view('Dashboard.invoices.proforma.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts'));
+        return view('Dashboard.invoices.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts'));
     }
-    public function NewProformaRegistration(Request $request)
+    public function NewInvoiceRegistration(Request $request)
     {
         $client = $request->client;
         $product = $request->product;
@@ -41,9 +40,9 @@ class ProformaController extends Controller
             return back()->withInput()->with('danger','Invalid quantity or Unit Cost');
 
         }
-        $newProforma = Proforma::create([
+        $newInvoice = Invoice::create([
             'id'=> Str::uuid()->toString(),
-            'client_id'=>$client,
+            'client'=>$client,
             'product'=>$product,
             'description'=>$description,
             'quantity'=>$quantity,
@@ -52,18 +51,9 @@ class ProformaController extends Controller
             'total_cost'=>$totalCost,
             'status'=>'NOT PAID'
          ]);
-         if($newProforma){
-             return redirect()->route('getAllProformas')->with('success','New Proforma Registered Successfully');
+         if($newInvoice){
+             return redirect()->route('getAllInvoices')->with('success','New Invoice Registered Successfully');
          }
          return back()->withInput()->with('danger','an error occured...please try again');
-    }
-    public function getProformaDetails($id)
-    {
-        $numberOfClients = Client::count();
-        $numberOfProducts = Product::count();
-        $numberOfUsers = User::count();
-        $clientToView = Client::with('proformas')->find($id);
-        return view('Dashboard.invoices.proforma.view',compact('numberOfClients','numberOfProducts','numberOfUsers','clientToView'));
-
     }
 }

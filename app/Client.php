@@ -15,6 +15,10 @@ class Client extends Model
         'phone_No',
         'email',
     ];
+    public function proformas()
+    {
+        return $this->hasMany('App\Proforma');
+    }
     protected $casts = [
         'id' => 'string'
     ];

@@ -77,6 +77,22 @@ Route::get('/home/suppliers/{id}/edit','SupplierController@getSupplierEditPage')
 Route::put('/home/suppliers/{id}/edit','SupplierController@SupplierUpdate')->name('supplierUpdate');
 Route::get('/home/suppliers/{id}/delete','SupplierController@supplierDeletion')->name('supplierDeletion');
 
+//Invoices Route
+Route::get('/home/invoices','InvoiceController@getInvoicesPage')->name('getAllInvoices');
+Route::get('/home/invoices/create','InvoiceController@getNewInvoiceRegistrationPage')->name('getNewInvoiceRegistrationPage');
+Route::post('/home/invoices/create','InvoiceController@NewInvoiceRegistration')->name('NewInvoiceRegistration');
+
+//Proforma Route
+Route::get('/home/proformas','ProformaController@getProformasPage')->name('getAllProformas');
+Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
+Route::get('/home/proformas/create','ProformaController@getNewProformaRegistrationPage')->name('getNewProformaRegistrationPage');
+Route::post('/home/proformas/create','ProformaController@NewProformaRegistration')->name('NewProformaRegistration');
+
+//Receipts Route
+Route::get('/home/receipts','ReceiptController@getReceiptsPage')->name('getAllReceipts');
+Route::get('/home/receipts/create','ReceiptController@getNewReceiptRegistrationPage')->name('getNewReceiptRegistrationPage');
+Route::post('/home/receipts/create','ReceiptController@NewReceiptRegistration')->name('NewReceiptRegistration');
+
 });
 
 

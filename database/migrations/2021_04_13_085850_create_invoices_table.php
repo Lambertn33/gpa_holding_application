@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProformasTable extends Migration
+class CreateInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateProformasTable extends Migration
      */
     public function up()
     {
-        Schema::create('proformas', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('client_id');
+            $table->string('client');
             $table->string('status')->nullable();
             $table->string('product');
             $table->string('description');
@@ -34,6 +34,6 @@ class CreateProformasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proformas');
+        Schema::dropIfExists('invoices');
     }
 }
