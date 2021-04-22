@@ -16,13 +16,9 @@ class CreateProformasTable extends Migration
         Schema::create('proformas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('client_id');
-            $table->string('status')->nullable();
-            $table->string('product');
-            $table->string('description');
+            $table->boolean('isConfirmed')->default(false);
             $table->date('date');
-            $table->bigInteger('quantity');
-            $table->bigInteger('unit_cost');
-            $table->bigInteger('total_cost');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

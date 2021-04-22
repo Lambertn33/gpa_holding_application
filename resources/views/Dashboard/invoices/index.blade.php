@@ -23,7 +23,7 @@
 
             </div>
             <div class="card-body pt-0">
-                <a href="{{ route('getNewInvoiceRegistrationPage') }}" class="btn btn-primary">Add New Invoice</a>
+                <a href="{{ route('getClientToMakeInvoice') }}" class="btn btn-primary">Add New Invoice</a>
                 <br>
                 <br>
                 <div class="table-responsive">
@@ -32,12 +32,10 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">Client Names</th>
-                                <th class="border-bottom-0">Product Name</th>
-                                <th class="border-bottom-0">Description</th>
-                                <th class="border-bottom-0">Date</th>
-                                <th class="border-bottom-0">Quantity</th>
-                                <th class="border-bottom-0">Unit Cost</th>
-                                <th class="border-bottom-0">Total Cost</th>
+                                <th class="border-bottom-0">Status</th>
+                                <th class="border-bottom-0">date</th>
+                                <th class="border-bottom-0">Total</th>
+                                <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,12 +45,12 @@
                                 <td>{{ $counter }}</td>
                                 <?php $counter++ ?>
                                 <td>{{ $item->client }}</td>
-                                <td>{{ $item->product }}</td>
-                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->status }}</td>
                                 <td>{{ $item->date }}</td>
-                                <td>{{ $item->quantity }}</td>
-                                <td>{{ $item->unit_cost }}</td>
-                                <td>{{ $item->total_cost }}</td>
+                                <td>{{ $item->products->sum('pivot.total_cost') }}</td>
+                                <td>
+                                  <a href="" class="btn btn-success">Print Invoice<a>
+                                </td>
                             </tr>
                             @endforeach
 

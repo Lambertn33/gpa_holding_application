@@ -16,11 +16,8 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('client');
-            $table->string('product');
-            $table->string('description')->nullable();
+            $table->boolean('isConfirmed')->default(false);
             $table->date('date');
-            $table->bigInteger('duration');
-            $table->bigInteger('amount');
             $table->timestamps();
         });
     }

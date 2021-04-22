@@ -276,7 +276,7 @@
 
                     <!-- row opened -->
                     @if(!Route::is('clientEditPage','getNewClientRegistrationPage','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
-                    'getNewProductRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
+                    'getNewProductRegistrationPage','getNewProformaRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
                     'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage','getNewInvoiceRegistrationPage'))
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">

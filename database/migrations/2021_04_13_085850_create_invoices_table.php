@@ -16,13 +16,9 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('client');
+            $table->boolean('isConfirmed')->default(false);
             $table->string('status')->nullable();
-            $table->string('product');
-            $table->string('description');
             $table->date('date');
-            $table->bigInteger('quantity');
-            $table->bigInteger('unit_cost');
-            $table->bigInteger('total_cost');
             $table->timestamps();
         });
     }

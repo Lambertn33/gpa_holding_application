@@ -37,11 +37,10 @@
                                 <th class="border-bottom-0">Date</th>
                                 <th class="border-bottom-0">Duration</th>
                                 <th class="border-bottom-0">Total Amount</th>
-                                <th class="border-bottom-0">Action</th>
 
                             </tr>
                         </thead>
-                        {{-- <tbody>
+                        <tbody>
                             <?php $counter = 1 ?>
                             @foreach ($allReceipts as $item)
                             <tr>
@@ -49,18 +48,14 @@
                                 <?php $counter++ ?>
                                 <td>{{ $item->client }}</td>
                                 <td>{{ $item->product }}</td>
-                                <td>Hello</td>
+                                <td>{{ $item->description }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->duration }} days</td>
-                                <td>{{ $item->amount }}</td>
-                                <td>
-                                     <a href="" class="btn btn-primary btn-sm">Print </a>
-                                     <a href="" class="btn btn-danger btn-sm">Delete </a>
-                                <td>
+                                <td>{{ $item->amount }} frws</td>
                             </tr>
                             @endforeach
 
-                        </tbody> --}}
+                        </tbody>
                     </table>
                 </div>
             </div>

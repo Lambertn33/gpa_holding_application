@@ -79,19 +79,26 @@ Route::get('/home/suppliers/{id}/delete','SupplierController@supplierDeletion')-
 
 //Invoices Route
 Route::get('/home/invoices','InvoiceController@getInvoicesPage')->name('getAllInvoices');
+Route::get('/home/invoices/clientSelection','InvoiceController@getClientToMakeInvoice')->name('getClientToMakeInvoice');
+Route::post('/home/invoices/clientSelection','InvoiceController@saveClientToMakeInvoice')->name('saveClientToMakeInvoice');
 Route::get('/home/invoices/create','InvoiceController@getNewInvoiceRegistrationPage')->name('getNewInvoiceRegistrationPage');
 Route::post('/home/invoices/create','InvoiceController@NewInvoiceRegistration')->name('NewInvoiceRegistration');
+Route::get('/home/invoices/{id}/confirmInvoice','InvoiceController@confirmInvoice')->name('confirmInvoice');
+Route::get('/home/invoices/{id}/deleteInvoice','InvoiceController@deleteInvoice')->name('deleteInvoice');
+Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceItem')->name('deleteInvoiceItem');
+
 
 //Proforma Route
 Route::get('/home/proformas','ProformaController@getProformasPage')->name('getAllProformas');
-Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
 Route::get('/home/proformas/create','ProformaController@getNewProformaRegistrationPage')->name('getNewProformaRegistrationPage');
 Route::post('/home/proformas/create','ProformaController@NewProformaRegistration')->name('NewProformaRegistration');
+Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
 
 //Receipts Route
 Route::get('/home/receipts','ReceiptController@getReceiptsPage')->name('getAllReceipts');
 Route::get('/home/receipts/create','ReceiptController@getNewReceiptRegistrationPage')->name('getNewReceiptRegistrationPage');
 Route::post('/home/receipts/create','ReceiptController@NewReceiptRegistration')->name('NewReceiptRegistration');
+
 
 });
 

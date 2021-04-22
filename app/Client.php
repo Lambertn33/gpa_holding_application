@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    public $incrementing = false;
     protected $fillable = [
         'id',
         'client_Names',
