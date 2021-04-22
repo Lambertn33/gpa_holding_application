@@ -90,8 +90,12 @@ Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceI
 
 //Proforma Route
 Route::get('/home/proformas','ProformaController@getProformasPage')->name('getAllProformas');
+Route::get('/home/proformas/clientSelection','ProformaController@getClientToMakeProforma')->name('getClientToMakeProforma');
+Route::post('/home/proformas/clientSelection','ProformaController@saveClientToMakeProforma')->name('saveClientToMakeProforma');
 Route::get('/home/proformas/create','ProformaController@getNewProformaRegistrationPage')->name('getNewProformaRegistrationPage');
 Route::post('/home/proformas/create','ProformaController@NewProformaRegistration')->name('NewProformaRegistration');
+Route::get('/home/proformas/{id}/confirmProforma','ProformaController@confirmProforma')->name('confirmProforma');
+Route::get('/home/invoices/{id}/deleteProforma','ProformaController@deleteProforma')->name('deleteProforma');
 Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
 
 //Receipts Route

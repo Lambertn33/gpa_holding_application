@@ -16,46 +16,102 @@ class ProformaController extends Controller
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
-        $allClients = Client::get();
+        $allProfomas = Proforma::with('client')->get();
         $allProformas  = Proforma::get();
-        return view('Dashboard.invoices.proforma.index',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients'));
+        return view('Dashboard.invoices.proforma.index',compact('numberOfClients','numberOfProducts','numberOfUsers','allProformas'));
     }
-    public function getNewProformaRegistrationPage()
+    public function getClientToMakeProforma(Request $request)
     {
+        $request->session()->forget('clientToMakeProforma');
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        $allClients = Client::get();
+         return view('Dashboard.invoices.proforma.clientSelection',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients'));
+
+    }
+    public function saveClientToMakeProforma(Request $request)
+    {
+
+        $client = $request->client;
+        if(empty($client)){
+            return back()->with('danger','please select the client');
+        }
+        $clientToMakeProforma = Proforma::create([
+            'id'=> Str::uuid()->toString(),
+            'client_id'=>$client,
+            'date'=>date("Y-m-d"),
+            'isConfirmed'=>false,
+            'status'=>'NOT PAID',
+        ]);
+        if($clientToMakeProforma){
+             $request->session()->put('clientToMakeProforma',$clientToMakeProforma);
+              return redirect()->route('getNewProformaRegistrationPage');
+        }
+    }
+    public function getNewProformaRegistrationPage(Request $request)
+    {
+
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
         $allClients = Client::get();
         $allProducts = Product::get();
-        return view('Dashboard.invoices.proforma.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts'));
-    }
+        $clientToMakeProforma = $request->session()->get('clientToMakeProforma');
+        $clientToMakeProforma  = Proforma::with('products')->with('client')->find($clientToMakeProforma->id);
+       // return $clientToMakeProforma;
+       return view('Dashboard.invoices.proforma.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts','clientToMakeProforma'));
+     }
     public function NewProformaRegistration(Request $request)
     {
-        $client = $request->client;
-        $product = $request->product;
+         //return $request->all();
+         $product = $request->product;
         $description = $request->description;
         $quantity = $request->quantity;
         $unitCost = $request->unitCost;
         $totalCost = $request->totalCost;
+        $clientToMakeProforma = $request->session()->get('clientToMakeProforma');
+        if(empty($description)){
+            return back()->withInput()->with('danger','Provide the description');
+        }
         if($quantity == 0 || $unitCost == 0){
             return back()->withInput()->with('danger','Invalid quantity or Unit Cost');
 
         }
-        $newProforma = Proforma::create([
-            'id'=> Str::uuid()->toString(),
-            'client_id'=>$client,
-            'product'=>$product,
+        $clientToMakeProforma->products()->attach($product,array(
+            'proforma_product_id'=>Str::uuid(),
             'description'=>$description,
             'quantity'=>$quantity,
             'unit_cost'=>$unitCost,
-            'date'=>date("Y-m-d"),
-            'total_cost'=>$totalCost,
-            'status'=>'NOT PAID'
-         ]);
-         if($newProforma){
-             return redirect()->route('getAllProformas')->with('success','New Proforma Registered Successfully');
-         }
-         return back()->withInput()->with('danger','an error occured...please try again');
+            'total_cost'=>$totalCost
+            ));
+            return back()->with('success','Proforma captured...add more if you want or confirm your invoice');
+    }
+    public function confirmProforma($id , Request $request)
+    {
+        $proformaToConfirm = Proforma::with('products')->find($id);
+        if($proformaToConfirm->products()->count() > 0){
+            if($proformaToConfirm->update([
+                'isConfirmed'=>true
+            ])){
+                return redirect()->route('getAllProformas')->with('success','Proforma created successfully');
+                $request->session()->forget('clientToMakeProforma');
+            }
+        }else{
+            return back()->with('danger','proforma doesn t have any product');
+        }
+    }
+    public function deleteProforma($id)
+    {
+        $ProformaToDelete = Proforma::with('products')->find($id);
+        if($ProformaToDelete->products()->count() > 0){
+            $ProformaToDelete->products()->detach();
+            $ProformaToDelete->delete();
+            return redirect()->route('getAllProformas')->with('success','Proforma canceled successfully');
+        }else{
+            $ProformaToDelete->delete();
+            return redirect()->route('getAllInvoices')->with('success','Invoice canceled successfully');
+        }
     }
     public function getProformaDetails($id)
     {
@@ -63,7 +119,7 @@ class ProformaController extends Controller
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
         $clientToView = Client::with('proformas')->find($id);
-        return view('Dashboard.invoices.proforma.view',compact('numberOfClients','numberOfProducts','numberOfUsers','clientToView'));
+         return view('Dashboard.invoices.proforma.view',compact('numberOfClients','numberOfProducts','numberOfUsers','clientToView'));
 
     }
 }

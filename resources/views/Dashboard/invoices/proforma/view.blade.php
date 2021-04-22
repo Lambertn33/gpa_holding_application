@@ -29,28 +29,21 @@
                         <thead>
                             <tr>
                                 <th class="border-bottom-0">#</th>
-                                <th class="border-bottom-0">Product Name</th>
-                                <th class="border-bottom-0">Description</th>
                                 <th class="border-bottom-0">Date</th>
-                                <th class="border-bottom-0">Quantity</th>
-                                <th class="border-bottom-0">Unit Cost</th>
-                                <th class="border-bottom-0">Total Cost</th>
-                                {{-- <th class="border-bottom-0">Action</th> --}}
+                                <th class="border-bottom-0">Status</th>
+                                <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $counter = 1 ?>
                             @foreach ($clientToView->proformas as $item)
-                            <tr>
-                                <td>{{ $counter }}</td>
-                                <?php $counter++ ?>
-                                <td>{{ $item->product }}</td>
-                                <td>{{ $item->description }}</td>
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->quantity }}</td>
-                                <td>{{ $item->unit_cost }}</td>
-                                <td>{{ $item->total_cost }}</td>
-                            </tr>
+                            <td>{{ $counter }}</td>
+                            <?php $counter++ ?>
+                            <td>{{ $item->date }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>
+                                <a href="" class="btn btn-success">Print Proforma</a>
+                            </td>
                             @endforeach
 
                         </tbody>
