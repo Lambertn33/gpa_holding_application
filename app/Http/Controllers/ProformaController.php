@@ -46,6 +46,7 @@ class ProformaController extends Controller
         ]);
         if($clientToMakeProforma){
              $request->session()->put('clientToMakeProforma',$clientToMakeProforma);
+             //return $request->session()->get('clientToMakeProforma');
               return redirect()->route('getNewProformaRegistrationPage');
         }
     }
@@ -58,9 +59,11 @@ class ProformaController extends Controller
         $allClients = Client::get();
         $allProducts = Product::get();
         $clientToMakeProforma = $request->session()->get('clientToMakeProforma');
-        $clientToMakeProforma  = Proforma::with('products')->with('client')->find($clientToMakeProforma->id);
+        $client = Client::where('id',$clientToMakeProforma->client_id)->first();
+        $clientToMakeProforma  = Proforma::with('products')->find($clientToMakeProforma->id);
+       // return $client;
        // return $clientToMakeProforma;
-       return view('Dashboard.invoices.proforma.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts','clientToMakeProforma'));
+       return view('Dashboard.invoices.proforma.create',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients','allProducts','clientToMakeProforma','client'));
      }
     public function NewProformaRegistration(Request $request)
     {
@@ -110,7 +113,7 @@ class ProformaController extends Controller
             return redirect()->route('getAllProformas')->with('success','Proforma canceled successfully');
         }else{
             $ProformaToDelete->delete();
-            return redirect()->route('getAllInvoices')->with('success','Invoice canceled successfully');
+            return redirect()->route('getAllProformas')->with('success','Proforma canceled successfully');
         }
     }
     public function getProformaDetails($id)

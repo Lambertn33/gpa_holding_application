@@ -5,7 +5,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <div class="card-title text-lg text-blue-500">{{ $clientToMakeProforma->client->client_Names }} Proforma </div>
+                <div class="card-title text-lg text-blue-500">{{ $client->client_Names }} Proforma </div>
 
             </div>
             <div class="card-body pt-0">
@@ -30,7 +30,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label"> Client</label>
-                                 <input class="form-control border-2" type="text" name="" value="{{ $clientToMakeProforma->client->client_Names }}" readonly>
+                                 <input class="form-control border-2" type="text" name="" value="{{ $client->client_Names }}" readonly>
 
                             </div>
                         </div>

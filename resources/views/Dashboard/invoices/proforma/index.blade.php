@@ -33,7 +33,7 @@
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">Client Names</th>
                                 <th class="border-bottom-0">date</th>
-                                <th class="border-bottom-0">status</th>
+                                {{-- <th class="border-bottom-0">status</th> --}}
                                 <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
@@ -45,7 +45,7 @@
                                 <?php $counter++ ?>
                                 <td>{{ $item->client->client_Names }}</td>
                                  <td>{{ $item->date }}</td>
-                                <td>{{ $item->status }}</td>
+                                {{-- <td>{{ $item->status }}</td> --}}
                                 <td>
                                     <a href="" class="btn btn-success">Print Proforma</a>
                                 </td>
