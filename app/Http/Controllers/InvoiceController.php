@@ -49,6 +49,11 @@ class InvoiceController extends Controller
               return redirect()->route('getNewInvoiceRegistrationPage');
         }
     }
+    public function saveProductToMakeInvoice(Request $request)
+    {
+    $product = Product::where('id',$request->productId)->first();
+    return $product->price;
+    }
     public function getNewInvoiceRegistrationPage(Request $request)
     {
         $numberOfClients = Client::count();

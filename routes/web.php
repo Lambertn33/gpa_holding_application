@@ -81,6 +81,7 @@ Route::get('/home/suppliers/{id}/delete','SupplierController@supplierDeletion')-
 Route::get('/home/invoices','InvoiceController@getInvoicesPage')->name('getAllInvoices');
 Route::get('/home/invoices/clientSelection','InvoiceController@getClientToMakeInvoice')->name('getClientToMakeInvoice');
 Route::post('/home/invoices/clientSelection','InvoiceController@saveClientToMakeInvoice')->name('saveClientToMakeInvoice');
+Route::post('/home/invoices/productSelection','InvoiceController@saveProductToMakeInvoice')->name('saveProductToMakeInvoice');
 Route::get('/home/invoices/create','InvoiceController@getNewInvoiceRegistrationPage')->name('getNewInvoiceRegistrationPage');
 Route::post('/home/invoices/create','InvoiceController@NewInvoiceRegistration')->name('NewInvoiceRegistration');
 Route::get('/home/invoices/{id}/confirmInvoice','InvoiceController@confirmInvoice')->name('confirmInvoice');

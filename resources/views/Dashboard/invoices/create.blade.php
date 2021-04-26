@@ -44,13 +44,15 @@
                          <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Select Product</label>
-                                <select name="product" class="form-control">
-                                     <option selected disabled>Select Product...</option>
-                                     @foreach ($allProducts as $item)
-                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                     @endforeach
+
+                                    <select name="product" class="form-control" id="productChoice">
+                                        <option selected disabled>Select Product...</option>
+                                        @foreach ($allProducts as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
-                             </div>
+                                </div>
+                                @csrf
                          </div>
                          <div class="col-md-12">
                             <div class="form-group">
@@ -61,13 +63,13 @@
                          <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Quantity</label>
-                                <input type="number" oninput="handleValueChange()" min="0" id="quantity" class="form-control border-2" name="quantity" value="{{ old('quantity') }}">
+                                <input type="number"  min="1" id="quantity"  class="form-control border-2" name="quantity" value="{{ old('quantity') }}">
                             </div>
                          </div>
                          <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Unit Cost</label>
-                                <input type="number" class="form-control border-2" min="0" oninput="handleValueChange()" min="0" id="unit_cost" name="unitCost" value="{{ old('unitCost') }}">
+                                <input type="number" readonly class="form-control border-2" id="unit_cost" name="unitCost" value="{{ old('unitCost') }}">
                             </div>
                          </div>
                          <div class="col-md-4">
@@ -136,19 +138,36 @@
        </div>
      </div>
 </div>
-<script>
-    document.getElementById('unit_cost').value = 0
-    document.getElementById('quantity').value = 0
-    document.getElementById('total_cost').value = parseInt(document.getElementById('unit_cost').value) * parseInt(document.getElementById('quantity').value)
-    function handleValueChange(){
-        var unitCost= unit_cost.value
-        var Quantity= quantity.value
-        var totalCost = parseInt(unitCost) * parseInt(Quantity)
-        if(Number.isNaN(totalCost)){
-            totalCost = 0
-        }
-        document.getElementById('total_cost').value = totalCost
-    }
-</script>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#quantity').prop("disabled",true);
+        $('#productChoice').change(function(){
+           var productId = $(this).val();
+           var token = $('input[name="_token"]').val()
+           $.ajax({
+               url:"{{ route('saveProductToMakeInvoice') }}",
+               type:"POST",
+               data:{
+               _token:token,
+               productId:productId
+               },
+               success:function(result){
+                $('#unit_cost').val(result)
+                $('#quantity').prop("disabled",false);
+                $('#quantity').val(1)
+                $('#total_cost').val(result)
+               }
+           })
 
+        })
+        $('#quantity').on('input',function(){
+            var quantity = $(this).val()
+            var unit_price = $('#unit_cost').val()
+            var total = parseInt(quantity * unit_price)
+            $('#total_cost').val(total)
+        })
+
+    })
+</script>
