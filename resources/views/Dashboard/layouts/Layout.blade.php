@@ -46,9 +46,9 @@
 <body>
 
     <!-- Loader -->
-    <div id="loading">
+    {{-- <div id="loading">
         <img src="/Dashboard/images/other/loader.svg" class="loader-img" alt="Loader">
-    </div>
+    </div> --}}
 
     <!-- PAGE -->
     <div class="page">
@@ -275,9 +275,9 @@
                     <!-- Page-header closed -->
 
                     <!-- row opened -->
-                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
+                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','viewProforma','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
                     'getNewProductRegistrationPage','getNewProformaRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
-                    'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage','getNewInvoiceRegistrationPage'))
+                    'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage','getNewInvoiceRegistrationPage','viewInvoice'))
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             <!-- row opened -->

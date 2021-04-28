@@ -19,7 +19,7 @@ class CreateInvoiceProductsTable extends Migration
             $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->bigInteger('quantity');
             $table->bigInteger('unit_cost');
             $table->bigInteger('total_cost');

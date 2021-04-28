@@ -7,6 +7,7 @@ use App\Proforma;
 use App\Client;
 use App\User;
 use App\Product;
+use App\Invoice;
 use Illuminate\Support\Str;
 
 class ProformaController extends Controller
@@ -50,6 +51,11 @@ class ProformaController extends Controller
               return redirect()->route('getNewProformaRegistrationPage');
         }
     }
+    public function saveProductToMakeProforma(Request $request)
+    {
+    $product = Product::where('id',$request->productId)->first();
+    return $product->price;
+    }
     public function getNewProformaRegistrationPage(Request $request)
     {
 
@@ -74,9 +80,6 @@ class ProformaController extends Controller
         $unitCost = $request->unitCost;
         $totalCost = $request->totalCost;
         $clientToMakeProforma = $request->session()->get('clientToMakeProforma');
-        if(empty($description)){
-            return back()->withInput()->with('danger','Provide the description');
-        }
         if($quantity == 0 || $unitCost == 0){
             return back()->withInput()->with('danger','Invalid quantity or Unit Cost');
 
@@ -116,6 +119,16 @@ class ProformaController extends Controller
             return redirect()->route('getAllProformas')->with('success','Proforma canceled successfully');
         }
     }
+    public function viewProforma($id)
+    {
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        $allProducts = Product::get();
+        $proformaToView = Proforma::with('products')->with('client')->find($id);
+        //return $proformaToView;
+        return view('Dashboard.invoices.proforma.view',compact('numberOfClients','allProducts','numberOfProducts','numberOfUsers','proformaToView'));
+    }
     public function getProformaDetails($id)
     {
         $numberOfClients = Client::count();
@@ -124,5 +137,73 @@ class ProformaController extends Controller
         $clientToView = Client::with('proformas')->find($id);
          return view('Dashboard.invoices.proforma.view',compact('numberOfClients','numberOfProducts','numberOfUsers','clientToView'));
 
+    }
+    public function addProductToExistingProforma(Request $request)
+    {
+      $proformaToAddProduct = Proforma::with('products')->where('id',$request->proformaId)->first();
+      //return $proformaToAddProduct;
+      //return $request->all();
+      $product = $request->product;
+      $description = $request->description;
+      $quantity = $request->quantity;
+      $unitCost = $request->unitCost;
+      $totalCost = $request->totalCost;
+      $proformaToAddProduct->products()->attach($product,array(
+        'proforma_product_id'=>Str::uuid(),
+        'description'=>$description,
+        'quantity'=>$quantity,
+        'unit_cost'=>$unitCost,
+        'total_cost'=>$totalCost
+        ));
+       return back();
+
+    }
+    public function deleteProformaItem(Request $request)
+    {
+       // return $request->all();
+       $productToDetach = Product::find($request->productId);
+       $proforma = Proforma::find($request->proformaId);
+       if($proforma->products()->detach($productToDetach)){
+           return back()->with('success','product removed successfully');
+       }
+    }
+    public function changeProformaToInvoice($id)
+    {
+        $proformaToMakeInvoice = Proforma::with('client')->with('products')->find($id);
+        $newInvoiceFromProforma = Invoice::create([
+            'id'=> Str::uuid()->toString(),
+            'client'=>$proformaToMakeInvoice->client->client_Names,
+            'date'=>$proformaToMakeInvoice->date,
+            'isConfirmed'=>$proformaToMakeInvoice->isConfirmed,
+            'status'=>$proformaToMakeInvoice->status,
+        ]);
+        if($newInvoiceFromProforma){
+            foreach($proformaToMakeInvoice->products as $product){
+                $newInvoiceFromProforma->products()->attach($product,array(
+                    'invoice_product_id'=>Str::uuid(),
+                    'description'=>$product->pivot->description,
+                    'quantity'=>$product->pivot->quantity,
+                    'unit_cost'=>$product->pivot->unit_cost,
+                    'total_cost'=>$product->pivot->total_cost
+                    ));
+            }
+            return back()->with('success','Proforma Changed to invoice successfully');
+        }
+    }
+
+    public function changeProformaStatus(Request $request)
+    {
+        $proformaToUpdate = Proforma::where('id',$request->proformaId)->first();
+        if($proformaToUpdate->status === "NOT PAID"){
+            Proforma::where('id',$request->proformaId)->update([
+                'status'=>'PAID'
+            ]);
+            return back();
+        }else{
+            Proforma::where('id',$request->proformaId)->update([
+                'status'=>'NOT PAID'
+            ]);
+            return back();
+        }
     }
 }

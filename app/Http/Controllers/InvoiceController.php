@@ -9,6 +9,7 @@ use App\User;
 use App\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -67,17 +68,13 @@ class InvoiceController extends Controller
     }
     public function NewInvoiceRegistration(Request $request)
     {
-        //return $request->all();
         $product = $request->product;
         $description = $request->description;
         $quantity = $request->quantity;
         $unitCost = $request->unitCost;
         $totalCost = $request->totalCost;
         $clientToMakeInvoice = $request->session()->get('clientToMakeInvoice');
-        if(empty($description)){
-            return back()->withInput()->with('danger','Provide the description');
-        }
-        if($quantity == 0 || $unitCost == 0){
+        if($quantity == 0){
             return back()->withInput()->with('danger','Invalid quantity or Unit Cost');
 
         }
@@ -105,17 +102,67 @@ class InvoiceController extends Controller
             return back()->with('danger','invoice doesn t have any product');
         }
     }
+    public function viewInvoice($id)
+    {
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        $invoiceToView = Invoice::with('products')->find($id);
+        $allProducts = Product::get();
+        return view('Dashboard.invoices.view',compact('numberOfClients','allProducts','numberOfProducts','numberOfUsers','invoiceToView'));
+    }
+    public function addProductToExistingInvoice(Request $request)
+    {
+      $invoiceToAddProduct = Invoice::with('products')->where('id',$request->invoiceId)->first();
+      //return $request->all();
+      $product = $request->product;
+      $description = $request->description;
+      $quantity = $request->quantity;
+      $unitCost = $request->unitCost;
+      $totalCost = $request->totalCost;
+      $invoiceToAddProduct->products()->attach($product,array(
+        'invoice_product_id'=>Str::uuid(),
+        'description'=>$description,
+        'quantity'=>$quantity,
+        'unit_cost'=>$unitCost,
+        'total_cost'=>$totalCost
+        ));
+       return back();
+
+    }
     public function deleteInvoice($id)
     {
         $invoiceToDelete = Invoice::with('products')->find($id);
         if($invoiceToDelete->products()->count() > 0){
             $invoiceToDelete->products()->detach();
             $invoiceToDelete->delete();
-            return redirect()->route('getAllInvoices')->with('success','Invoice canceled successfully');
+            return redirect()->route('getAllInvoices')->with('success','Invoice deleted successfully');
         }else{
             $invoiceToDelete->delete();
-            return redirect()->route('getAllInvoices')->with('success','Invoice canceled successfully');
+            return redirect()->route('getAllInvoices')->with('success','Invoice deleted successfully');
         }
+    }
+    public function changeInvoiceStatus(Request $request)
+    {
+        $invoiceToUpdate = Invoice::where('id',$request->invoiceId)->first();
+        if($invoiceToUpdate->status === "NOT PAID"){
+            Invoice::where('id',$request->invoiceId)->update([
+                'status'=>'PAID'
+            ]);
+            return back();
+        }else{
+            Invoice::where('id',$request->invoiceId)->update([
+                'status'=>'NOT PAID'
+            ]);
+            return back();
+        }
+    }
+    public function printPDF($id)
+    {
+        $invoiceToPrint = Invoice::with('products')->find($id);
+        view()->share('invoiceToPrint',$invoiceToPrint);
+        $pdf = PDF::loadView('Dashboard.invoices.printInvoice',$invoiceToPrint);
+        return $pdf->download('invoice.pdf');
     }
     public function deleteInvoiceItem(Request $request)
     {

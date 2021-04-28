@@ -19,7 +19,7 @@ class CreateProformaProductsTable extends Migration
             $table->foreign('proforma_id')->references('id')->on('proformas');
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->bigInteger('quantity');
             $table->bigInteger('unit_cost');
             $table->bigInteger('total_cost');

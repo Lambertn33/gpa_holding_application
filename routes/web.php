@@ -85,18 +85,28 @@ Route::post('/home/invoices/productSelection','InvoiceController@saveProductToMa
 Route::get('/home/invoices/create','InvoiceController@getNewInvoiceRegistrationPage')->name('getNewInvoiceRegistrationPage');
 Route::post('/home/invoices/create','InvoiceController@NewInvoiceRegistration')->name('NewInvoiceRegistration');
 Route::get('/home/invoices/{id}/confirmInvoice','InvoiceController@confirmInvoice')->name('confirmInvoice');
+Route::get('/home/invoices/{id}/viewInvoice','InvoiceController@viewInvoice')->name('viewInvoice');
+Route::put('/home/invoices/changeInvoiceStatus','InvoiceController@changeInvoiceStatus')->name('changeInvoiceStatus');
 Route::get('/home/invoices/{id}/deleteInvoice','InvoiceController@deleteInvoice')->name('deleteInvoice');
+Route::post('/home/invoices/addProductToExistingInvoice','InvoiceController@addProductToExistingInvoice')->name('addProductToExistingInvoice');
 Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceItem')->name('deleteInvoiceItem');
+Route::get('/home/invoices/{id}/getInvoiceToPrint/print','InvoiceController@printPDF')->name('printPDF');
 
 
 //Proforma Route
 Route::get('/home/proformas','ProformaController@getProformasPage')->name('getAllProformas');
 Route::get('/home/proformas/clientSelection','ProformaController@getClientToMakeProforma')->name('getClientToMakeProforma');
 Route::post('/home/proformas/clientSelection','ProformaController@saveClientToMakeProforma')->name('saveClientToMakeProforma');
+Route::post('/home/proformas/productSelection','ProformaController@saveProductToMakeProforma')->name('saveProductToMakeProforma');
 Route::get('/home/proformas/create','ProformaController@getNewProformaRegistrationPage')->name('getNewProformaRegistrationPage');
 Route::post('/home/proformas/create','ProformaController@NewProformaRegistration')->name('NewProformaRegistration');
 Route::get('/home/proformas/{id}/confirmProforma','ProformaController@confirmProforma')->name('confirmProforma');
-Route::get('/home/invoices/{id}/deleteProforma','ProformaController@deleteProforma')->name('deleteProforma');
+Route::get('/home/proformas/{id}/viewProforma','ProformaController@viewProforma')->name('viewProforma');
+Route::put('/home/proformas/changeProformaStatus','ProformaController@changeProformaStatus')->name('changeProformaStatus');
+Route::get('/home/proformas/{id}/deleteProforma','ProformaController@deleteProforma')->name('deleteProforma');
+Route::get('/home/proformas/{id}/changeProformaToInvoice','ProformaController@changeProformaToInvoice')->name('changeProformaToInvoice');
+Route::post('/home/proformas/addProductToExistingProforma','ProformaController@addProductToExistingProforma')->name('addProductToExistingProforma');
+Route::post('/home/proformas/deleteProformaItem','ProformaController@deleteProformaItem')->name('deleteProformaItem');
 Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
 
 //Receipts Route

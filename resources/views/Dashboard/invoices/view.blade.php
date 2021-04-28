@@ -1,26 +1,26 @@
 @extends('Dashboard.layouts.Layout')
 
 @section('content')
- <div class="row">
+<div class="row">
     <div class="col-md-6">
-       <div class="card">
-        <div class="card-header">
-            <div class="card-title text-lg text-blue-500">View Proforma</div>
+      <div class="card">
+          <div class="card-header">
+            <div class="card-title text-lg text-blue-500">View Invoice</div>
         </div>
         <div class="card-body pt-0">
-            <button type="button" data-toggle="modal" data-target="#modal-form" class="btn btn-primary btn-sm"> Add More Products</button>
-            <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+              <button type="button" data-toggle="modal" data-target="#modal-form" class="btn btn-primary btn-sm"> Add More Products</button>
+              <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                 <div class="modal-dialog  " role="document">
                     <div class="modal-content shadow border-0">
                         <div class="modal-body p-0">
                             <div class="mb-0">
                                 <div class="card-body px-lg-5 py-lg-5">
                                     <div class="text-center mb-4 h4">
-                                        Add More Product to This Proforma
+                                        Add More Product to This Invoice
                                     </div>
-                                    <form action="{{ route('addProductToExistingProforma') }}" method="POST">
+                                    <form action="{{ route('addProductToExistingInvoice') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="proformaId" value="{{  $proformaToView->id }}">
+                                        <input type="hidden" name="invoiceId" value="{{  $invoiceToView->id }}">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="form-label">Select Product</label>
@@ -36,7 +36,7 @@
                                          </div>
                                          <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Enter Proforma Description</label>
+                                                    <label class="form-label">Enter Invoice Description</label>
                                                     <textarea class="form-control border-2" rows="3" name="description"></textarea>
                                                 </div>
                                             </div>
@@ -84,43 +84,43 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $proformaToView->client->client_Names }}</td>
-                            <td>{{ $proformaToView->status }}</td>
-                            <td>{{ $proformaToView->date }}</td>
-                            <td>{{ $proformaToView->products->sum('pivot.total_cost') }}</td>
-                            @if($proformaToView->status == "NOT PAID")
+                            <td>{{ $invoiceToView->client }}</td>
+                            <td>{{ $invoiceToView->status }}</td>
+                            <td>{{ $invoiceToView->date }}</td>
+                            <td>{{ $invoiceToView->products->sum('pivot.total_cost') }}</td>
+                            @if($invoiceToView->status == "NOT PAID")
                              <td>
-                                 <form action="{{ route('changeProformaStatus') }}" method="POST">
+                                 <form action="{{ route('changeInvoiceStatus') }}" method="POST">
                                     <input type="hidden" name="_method" value="put">
                                     @csrf
-                                    <input type="hidden" name="proformaId" value="{{ $proformaToView->id }}"/>
-                                    <button type="submit" class="btn btn-success btn-sm">make Proforma Paid</button>
+                                    <input type="hidden" name="invoiceId" value="{{ $invoiceToView->id }}"/>
+                                    <button type="submit" class="btn btn-success btn-sm">make Invoice Paid</button>
                                 </form>
                              </td>
                              @else
                              <td>
-                                <form action="{{ route('changeProformaStatus') }}" method="POST">
+                                <form action="{{ route('changeInvoiceStatus') }}" method="POST">
                                     <input type="hidden" name="_method" value="put">
                                     @csrf
-                                    <input type="hidden" name="proformaId" value="{{ $proformaToView->id }}"/>
-                                    <button type="submit" class="btn btn-danger btn-sm">make Proforma Unpaid</button>
+                                    <input type="hidden" name="invoiceId" value="{{ $invoiceToView->id }}"/>
+                                    <button type="submit" class="btn btn-danger btn-sm">make Invoice Unpaid</button>
                                 </form>
                              </td>
                             @endif
                         </tr>
                     </tbody>
                 </table>
-                <a href="{{ route('getAllProformas') }}" class="btn btn-primary btn-sm">Back to Proforma</a>
+                <a href="{{ route('getAllInvoices') }}" class="btn btn-primary btn-sm">Back to Invoices</a>
                 <br/>
                 <br/>
             </div>
-        </div>
-       </div>
+          </div>
+      </div>
     </div>
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-              <div class="card-title text-lg text-blue-500">Proforma Details</div>
+              <div class="card-title text-lg text-blue-500">Invoice Details</div>
             </div>
             <div class="card-body pt-0">
                 <div class="table-responsive">
@@ -138,7 +138,7 @@
                         </thead>
 
                         <?php $counter = 1 ?>
-                        @foreach ($proformaToView->products as $product)
+                        @foreach ($invoiceToView->products as $product)
                          <tr>
                             <td>{{ $counter }}</td>
                             <?php $counter++ ?>
@@ -148,13 +148,13 @@
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->pivot->total_cost }}</td>
                             <td>
-                                <form action="{{ route('deleteProformaItem') }}" method="post">
+                                <form action="{{ route('deleteInvoiceItem') }}" method="post">
                                    @csrf
                                    <input type="hidden" name="productId" value="{{ $product->id }}">
-                                   <input type="hidden" name="proformaId" value="{{ $proformaToView->id }}">
+                                   <input type="hidden" name="invoiceId" value="{{ $invoiceToView->id }}">
                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                 </form>
-                            <td>
+                               <td>
                          </tr>
                         @endforeach
                     </table>
@@ -168,11 +168,12 @@
 <script>
     $(document).ready(function(){
         $('#quantity').prop("disabled",true);
+        $('#submitBtn').prop("disabled",true);
         $('#productChoice').change(function(){
            var productId = $(this).val();
            var token = $('input[name="_token"]').val()
            $.ajax({
-               url:"{{ route('saveProductToMakeProforma') }}",
+               url:"{{ route('saveProductToMakeInvoice') }}",
                type:"POST",
                data:{
                _token:token,
@@ -181,6 +182,7 @@
                success:function(result){
                 $('#unit_cost').val(result)
                 $('#quantity').prop("disabled",false);
+                $('#submitBtn').prop("disabled",false);
                 $('#quantity').val(1)
                 $('#total_cost').val(result)
                }
@@ -196,4 +198,3 @@
 
     })
 </script>
-

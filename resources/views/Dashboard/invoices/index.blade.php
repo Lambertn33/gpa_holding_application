@@ -23,7 +23,7 @@
 
             </div>
             <div class="card-body pt-0">
-                <a href="{{ route('getClientToMakeInvoice') }}" class="btn btn-primary">Add New Invoice</a>
+                <a href="{{ route('getClientToMakeInvoice') }}" class="btn btn-primary">Start New Invoice</a>
                 <br>
                 <br>
                 <div class="table-responsive">
@@ -49,7 +49,9 @@
                                 <td>{{ $item->date }}</td>
                                 <td>{{ $item->products->sum('pivot.total_cost') }}</td>
                                 <td>
-                                  <a href="" class="btn btn-success">Print Invoice<a>
+                                  <a href="{{ route('viewInvoice',$item->id) }}" class="btn btn-primary btn-sm">view or edit<a>
+                                  <a href="{{ route('printPDF',$item->id) }}" class="btn btn-success btn-sm">print<a>
+                                  <a href="{{ route('deleteInvoice',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
                                 </td>
                             </tr>
                             @endforeach

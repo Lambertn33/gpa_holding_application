@@ -60,19 +60,19 @@
                                 <textarea class="form-control border-2" rows="3" name="description"></textarea>
                             </div>
                          </div>
-                         <div class="col-md-4">
+                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Quantity</label>
                                 <input type="number"  min="1" id="quantity"  class="form-control border-2" name="quantity" value="{{ old('quantity') }}">
                             </div>
                          </div>
-                         <div class="col-md-4">
+                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Unit Cost</label>
                                 <input type="number" readonly class="form-control border-2" id="unit_cost" name="unitCost" value="{{ old('unitCost') }}">
                             </div>
                          </div>
-                         <div class="col-md-4">
+                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Total Cost</label>
                                 <input type="text" class="form-control border-2" readonly id="total_cost" name="totalCost" value="{{ old('totalCost') }}">
@@ -97,7 +97,7 @@
         </div>
         <div class="card-body pt-0">
             <div class="table-responsive">
-                <table id="example" class="table table-bordered  text-nowrap">
+                <table id="example1" class="table table-bordered  text-nowrap">
                     <thead>
                         <tr>
                             <th class="border-bottom-0">#</th>
