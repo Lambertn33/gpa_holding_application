@@ -141,8 +141,6 @@ class ProformaController extends Controller
     public function addProductToExistingProforma(Request $request)
     {
       $proformaToAddProduct = Proforma::with('products')->where('id',$request->proformaId)->first();
-      //return $proformaToAddProduct;
-      //return $request->all();
       $product = $request->product;
       $description = $request->description;
       $quantity = $request->quantity;
@@ -195,8 +193,9 @@ class ProformaController extends Controller
     {
         $proformaToUpdate = Proforma::where('id',$request->proformaId)->first();
         if($proformaToUpdate->status === "NOT PAID"){
+           // return $request->all();
             Proforma::where('id',$request->proformaId)->update([
-                'status'=>'PAID'
+                'status'=>$request->paymentStatus
             ]);
             return back();
         }else{

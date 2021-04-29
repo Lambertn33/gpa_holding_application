@@ -147,7 +147,7 @@ class InvoiceController extends Controller
         $invoiceToUpdate = Invoice::where('id',$request->invoiceId)->first();
         if($invoiceToUpdate->status === "NOT PAID"){
             Invoice::where('id',$request->invoiceId)->update([
-                'status'=>'PAID'
+                'status'=>$request->paymentStatus
             ]);
             return back();
         }else{

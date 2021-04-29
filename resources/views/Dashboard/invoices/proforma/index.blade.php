@@ -48,9 +48,9 @@
                                 <td>{{ $item->status }}</td>
                                 <td>
                                     <a href="{{ route('viewProforma',$item->id) }}" class="btn btn-primary btn-sm">view or edit<a>
-                                        <a href="" class="btn btn-success btn-sm">print<a>
-                                            <a href="{{ route('deleteProforma',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
+                                        <a href="{{ route('deleteProforma',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
                                             <a href="{{ route('changeProformaToInvoice',$item->id) }}" class="btn btn-warning btn-sm">Make Invoice<a>
+                                                <button onclick="printPDF()" class="btn btn-success btn-sm">print<a>
 
                                 </td>
                             </tr>
@@ -64,3 +64,4 @@
     </div>
 </div>
 @endsection
+
