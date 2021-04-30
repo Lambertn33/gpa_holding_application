@@ -111,6 +111,7 @@ Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name
 
 //Receipts Route
 Route::get('/home/receipts','ReceiptController@getReceiptsPage')->name('getAllReceipts');
+Route::get('/home/receipts/clientSelection','ReceiptController@getClientToMakeReceipt')->name('getClientToMakeReceipt');
 Route::get('/home/receipts/create','ReceiptController@getNewReceiptRegistrationPage')->name('getNewReceiptRegistrationPage');
 Route::post('/home/receipts/create','ReceiptController@NewReceiptRegistration')->name('NewReceiptRegistration');
 

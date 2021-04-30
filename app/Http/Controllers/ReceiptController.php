@@ -19,6 +19,17 @@ class ReceiptController extends Controller
         $allReceipts  = Receipt::get();
         return view('Dashboard.invoices.receipts.index',compact('numberOfClients','numberOfProducts','numberOfUsers','allReceipts'));
     }
+    public function getClientToMakeReceipt(Request $request)
+    {
+        $request->session()->forget('clientToMakeProforma');
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        $allClients = Client::get();
+        return $allClients;
+        // return view('Dashboard.invoices.proforma.clientSelection',compact('numberOfClients','numberOfProducts','numberOfUsers','allClients'));
+
+    }
     public function getNewReceiptRegistrationPage()
     {
         $numberOfClients = Client::count();

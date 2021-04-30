@@ -47,10 +47,65 @@
                                  <td>{{ $item->date }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>
-                                    <a href="{{ route('viewProforma',$item->id) }}" class="btn btn-primary btn-sm">view or edit<a>
-                                        <a href="{{ route('deleteProforma',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
-                                            <a href="{{ route('changeProformaToInvoice',$item->id) }}" class="btn btn-warning btn-sm">Make Invoice<a>
-                                                <button onclick="printPDF()" class="btn btn-success btn-sm">print<a>
+                                    @if($item->status == "NOT PAID")
+
+
+                                    <button type="button" data-toggle="modal" data-target="#modal-payment" class="btn btn-success btn-sm">Make Proforma Paid</button>
+                                                                          {{-- Start of The Modal --}}
+                <div class="modal fade" id="modal-payment" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                    <div class="modal-dialog  " role="document">
+                        <div class="modal-content shadow border-0">
+                            <div class="modal-body p-0">
+                                <div class="mb-0">
+                                    <div class="card-body px-lg-5 py-lg-5">
+                                        <form action="{{ route('changeProformaStatus') }}" method="POST">
+                                            <input type="hidden" name="_method" value="put">
+                                            @csrf
+                                            <input type="hidden" name="proformaId" value="{{  $item->id }}">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Select Payment Status</label>
+
+                                                        <select id="paymentStatus" name="paymentStatus" class="form-control">
+                                                            <option selected disabled>Select Payment Status</option>
+                                                            <option value="PAID BY CASH">PAID BY CASH</option>
+                                                            <option value="PAID BY BANK">PAID BY BANK</option>
+                                                            <option value="PAID BY MOBILE MONEY">PAID BY MOBILE MONEY</option>
+                                                        </select>
+                                                    </div>
+                                                    @csrf
+                                             </div>
+                                            <div class="text-center">
+                                                <button type="submit" id="payment_submit" class="btn ripple btn-success my-4">Make Proforma Paid</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- End of The Modal --}}
+
+                                 @else
+
+                                 <span>
+                                     <?php $form_class = $item->id ?>
+                                     <a href="" onclick="var result = confirm('Are you sure you want to Make This proforma Unpaid?'); if( result ){ event.preventDefault(); document.getElementById('{{ $form_class }}').submit(); }" class="btn btn-info btn-sm">make Proforma Unpaid
+                                     </a>
+                                    <form id="{{ $form_class }}" style="display: none" action="{{ route('changeProformaStatus') }}" method="POST">
+                                        <input type="hidden" name="_method" value="put">
+                                        @csrf
+                                        <input type="hidden" name="proformaId" value="{{ $item->id }}"/>
+                                    </form>
+                                 </span>
+
+                                @endif
+                                    <a href="{{ route('viewProforma',$item->id) }}" class="btn btn-primary btn-sm">view<a>
+                                    <a href="{{ route('deleteProforma',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
+                                     <a href="{{ route('changeProformaToInvoice',$item->id) }}" class="btn btn-warning btn-sm">Make Invoice<a>
+                                     <button onclick="printPDF()" class="btn btn-success btn-sm">print<a>
 
                                 </td>
                             </tr>
@@ -64,4 +119,15 @@
     </div>
 </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+     $('#payment_submit').prop("disabled",true)
+     $('#paymentStatus').change(function(){
+        if($(this).val() !='NULL'){
+           $('#payment_submit').prop("disabled",false)
+        }
+     })
+    })
+</script>
 

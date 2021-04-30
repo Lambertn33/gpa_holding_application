@@ -23,7 +23,7 @@
 
             </div>
             <div class="card-body pt-0">
-                <a href="{{ route('getNewReceiptRegistrationPage') }}" class="btn btn-primary">Add New Receipt</a>
+                <a href="{{ route('getClientToMakeReceipt') }}" class="btn btn-primary">Add New Receipt</a>
                 <br>
                 <br>
                 <div class="table-responsive">
