@@ -275,7 +275,7 @@
                     <!-- Page-header closed -->
 
                     <!-- row opened -->
-                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','viewProforma','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
+                    @if(!Route::is('clientEditPage','getNewClientRegistrationPage','viewProforma','viewReceipt','getNewReceiptRegistrationPage','getNewCategoryRegistrationPage','categoryEditPage',
                     'getNewProductRegistrationPage','getNewProformaRegistrationPage','productEditPage','getNewUserRegistrationPage','userEditPage',
                     'getNewStockRegistrationPage','stockEditPage','getNewSupplierRegistrationPage','supplierEditPage','getNewInvoiceRegistrationPage','viewInvoice'))
                     <div class="row">

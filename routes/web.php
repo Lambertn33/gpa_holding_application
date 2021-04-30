@@ -112,10 +112,15 @@ Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name
 //Receipts Route
 Route::get('/home/receipts','ReceiptController@getReceiptsPage')->name('getAllReceipts');
 Route::get('/home/receipts/clientSelection','ReceiptController@getClientToMakeReceipt')->name('getClientToMakeReceipt');
+Route::post('/home/receipts/clientSelection','ReceiptController@saveClientToMakeReceipt')->name('saveClientToMakeReceipt');
+Route::post('/home/receipts/productSelection','ReceiptController@saveProductToMakeReceipt')->name('saveProductToMakeReceipt');
 Route::get('/home/receipts/create','ReceiptController@getNewReceiptRegistrationPage')->name('getNewReceiptRegistrationPage');
 Route::post('/home/receipts/create','ReceiptController@NewReceiptRegistration')->name('NewReceiptRegistration');
-
-
+Route::get('/home/receipts/{id}/deleteReceipt','ReceiptController@deleteReceipt')->name('deleteReceipt');
+Route::post('/home/receipts/deleteReceiptItem','ReceiptController@deleteReceiptItem')->name('deleteReceiptItem');
+Route::get('/home/receipts/{id}/confirmReceipt','ReceiptController@confirmReceipt')->name('confirmReceipt');
+Route::get('/home/receipts/{id}/viewReceipt','ReceiptController@viewReceipt')->name('viewReceipt');
+Route::post('/home/receipts/addProductToExistingReceipt','ReceiptController@addProductToExistingReceipt')->name('addProductToExistingReceipt');
 });
 
 

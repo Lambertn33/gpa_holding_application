@@ -20,8 +20,9 @@ class CreateReceiptProductsTable extends Migration
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->string('description')->nullable();
-            $table->bigInteger('duration');
-            $table->bigInteger('amount');
+            $table->bigInteger('quantity');
+            $table->bigInteger('unit_cost');
+            $table->bigInteger('total_cost');
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@ class Receipt_Product extends Model
 {
     public $incrementing = false;
     protected $fillable = [
-      'receipt_product_id','product_id','receipt_id','description','duration','amount'
+      'receipt_product_id','product_id','receipt_id','description','quantity','unit_cost','total_cost'
     ];
     protected $casts = [
         'receipt_product_id' => 'string',

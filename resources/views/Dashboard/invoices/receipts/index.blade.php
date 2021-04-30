@@ -32,11 +32,9 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">Client Names</th>
-                                <th class="border-bottom-0">Product Name</th>
-                                <th class="border-bottom-0">Description</th>
-                                <th class="border-bottom-0">Date</th>
-                                <th class="border-bottom-0">Duration</th>
-                                <th class="border-bottom-0">Total Amount</th>
+                                <th class="border-bottom-0">date</th>
+                                <th class="border-bottom-0">Total</th>
+                                <th class="border-bottom-0">Action</th>
 
                             </tr>
                         </thead>
@@ -47,11 +45,13 @@
                                 <td>{{ $counter }}</td>
                                 <?php $counter++ ?>
                                 <td>{{ $item->client }}</td>
-                                <td>{{ $item->product }}</td>
-                                <td>{{ $item->description }}</td>
                                 <td>{{ $item->date }}</td>
-                                <td>{{ $item->duration }} days</td>
-                                <td>{{ $item->amount }} frws</td>
+                                <td>{{ $item->products->sum('pivot.total_cost') }}</td>
+                                <td>
+                                    <a href="{{ route('viewReceipt',$item->id) }}" class="btn btn-primary btn-sm">view<a>
+                                    <a href="{{ route('deleteReceipt',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
+                                    <button  class="btn btn-success btn-sm">print<a>
+                                </td>
                             </tr>
                             @endforeach
 

@@ -13,6 +13,6 @@ class Receipt extends Model
     ];
     public function products()
     {
-      return $this->belongsToMany(Product::class,'receipt__products')->withPivot('description','duration','amount');
+      return $this->belongsToMany(Product::class,'receipt__products')->withPivot('description','quantity','unit_cost','total_cost');
     }
 }
