@@ -90,7 +90,7 @@ Route::put('/home/invoices/changeInvoiceStatus','InvoiceController@changeInvoice
 Route::get('/home/invoices/{id}/deleteInvoice','InvoiceController@deleteInvoice')->name('deleteInvoice');
 Route::post('/home/invoices/addProductToExistingInvoice','InvoiceController@addProductToExistingInvoice')->name('addProductToExistingInvoice');
 Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceItem')->name('deleteInvoiceItem');
-Route::get('/home/invoices/{id}/getInvoiceToPrint/print','InvoiceController@printPDF')->name('printPDF');
+Route::get('/home/invoices/{id}/getInvoiceToPrint/print','InvoiceController@printPDF')->name('printInvoicePDF');
 
 
 //Proforma Route

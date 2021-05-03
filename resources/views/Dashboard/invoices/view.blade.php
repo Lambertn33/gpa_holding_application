@@ -117,6 +117,7 @@
                                 <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
+                        <tbody>
 
                         <?php $counter = 1 ?>
                         @foreach ($invoiceToView->products as $product)
@@ -138,6 +139,7 @@
                                <td>
                          </tr>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use App\Invoice;
 use App\Client;
 use App\User;
 use App\Product;
+use DateTime;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use PDF;
@@ -160,9 +161,10 @@ class InvoiceController extends Controller
     public function printPDF($id)
     {
         $invoiceToPrint = Invoice::with('products')->find($id);
-        view()->share('invoiceToPrint',$invoiceToPrint);
-        $pdf = PDF::loadView('Dashboard.invoices.printInvoice',$invoiceToPrint);
-        return $pdf->download('invoice.pdf');
+        $clientTin = Client::where('client_Names',$invoiceToPrint->client)->value('TIN');
+        $invoiceCreatedDate = $invoiceToPrint->date;
+        $invoiceDueDate = date('Y-m-d',strtotime($invoiceCreatedDate. ' + 15 days'));
+         return view('Dashboard.invoices.printInvoice',compact('invoiceToPrint','clientTin','invoiceDueDate'));
     }
     public function deleteInvoiceItem(Request $request)
     {
