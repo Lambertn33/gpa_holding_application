@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Print Invoice</title>
+    <title>Print Proforma</title>
 </head>
-
 <body>
     <div class="container">
         <div class="row">
@@ -53,10 +51,10 @@
                                  8px solid #000;
                                 ">
                                     <div style="margin-left:6px">
-                                        <span style="font-size:15px">INVOICE TO:</span>
+                                        <span style="font-size:15px">PROFORMA TO:</span>
                                         <br>
                                         <span style="font-size:20px;font-weight:lighter">
-                                        <b>{{ $invoiceToPrint->client }}</b>
+                                        <b>{{ $proformaToPrint->client->client_Names }}</b>
                                     </span>
                                         <br>
                                         <span style="font-size:20px;font-weight:lighter">
@@ -67,19 +65,9 @@
                             </div>
                             <div class="col-md-6">
                                 <span style="float:right;font-weight:lighter">
-                                  Date of Invoice: {{ $invoiceToPrint->date }}
+                                  Date of Issue: {{ $proformaToPrint->date }}
                               </span>
                                 <br>
-                                <span style="float:right;font-weight:lighter">
-                                  Due date: {{ $invoiceDueDate }}
-                              </span>
-                                <br> @if($invoiceToPrint->status == "NOT PAID")
-                                <span style="float:right" class="text-danger">
-                                    <b>Status: Pending</b>
-                                </span> @else
-                                <span style="float:right" class="text-success">
-                                    <b>Status: Paid</b>
-                                </span> @endif
                             </div>
                         </div>
                         <div class="row" style="margin-top:50px">
@@ -98,7 +86,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $counter = 1 ?> @foreach ($invoiceToPrint->products as $product)
+                                        <?php $counter = 1 ?> @foreach ($proformaToPrint->products as $product)
                                         <tr>
                                             <td>{{ $counter }}</td>
                                             <?php $counter++ ?>
@@ -111,7 +99,7 @@
                                         @endforeach
                                         <tr>
                                             <td colspan="5">Sub total (Vat Excl)</td>
-                                            <td><b>{{ $invoiceToPrint->products->sum('pivot.total_cost') }}</b></td>
+                                            <td><b>{{ $proformaToPrint->products->sum('pivot.total_cost') }}</b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5">VAT (18%)</td>
@@ -219,5 +207,4 @@
         })
     }
 </script>
-
 </html>

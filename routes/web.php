@@ -108,6 +108,7 @@ Route::get('/home/proformas/{id}/changeProformaToInvoice','ProformaController@ch
 Route::post('/home/proformas/addProductToExistingProforma','ProformaController@addProductToExistingProforma')->name('addProductToExistingProforma');
 Route::post('/home/proformas/deleteProformaItem','ProformaController@deleteProformaItem')->name('deleteProformaItem');
 Route::get('/home/proformas/{id}','ProformaController@getProformaDetails')->name('getProformaDetails');
+Route::get('/home/proformas/{id}/getProformaToPrint/print','ProformaController@printPDF')->name('printProformaPDF');
 
 //Receipts Route
 Route::get('/home/receipts','ReceiptController@getReceiptsPage')->name('getAllReceipts');

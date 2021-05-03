@@ -106,7 +106,7 @@
                                    @endif
                                   <a href="{{ route('viewInvoice',$item->id) }}" class="btn btn-primary btn-sm">view<a>
                                       <a href="{{ route('deleteInvoice',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
-                                      <a href="{{ route('printInvoicePDF',$item->id) }}" class="btn btn-warning btn-sm">print<a>
+                                      <a href="{{ route('printInvoicePDF',$item->id) }}" target="_blank" class="btn btn-warning btn-sm">print<a>
                                 </td>
                             </tr>
                             @endforeach
@@ -120,7 +120,6 @@
 </div>
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <script>
     $(document).ready(function(){
         $('#payment_submit').prop("disabled",true)
@@ -130,11 +129,5 @@
         }
      })
     })
-    window.onload = function(){
-        document.getElementById('download').addEventListener('click',()=>{
-            let card = this.document.getElementById('card')
-            html2pdf().from(card).save();
-        })
-    }
 </script>
 

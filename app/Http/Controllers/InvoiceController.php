@@ -164,7 +164,10 @@ class InvoiceController extends Controller
         $clientTin = Client::where('client_Names',$invoiceToPrint->client)->value('TIN');
         $invoiceCreatedDate = $invoiceToPrint->date;
         $invoiceDueDate = date('Y-m-d',strtotime($invoiceCreatedDate. ' + 15 days'));
-         return view('Dashboard.invoices.printInvoice',compact('invoiceToPrint','clientTin','invoiceDueDate'));
+        $totalAmount = $invoiceToPrint->products->sum('pivot.total_cost');
+        $eighteenPercent = round(($totalAmount *18) /100);
+        $grandTotal = $totalAmount + $eighteenPercent;
+        return view('Dashboard.invoices.printInvoice',compact('invoiceToPrint','clientTin','invoiceDueDate','eighteenPercent','grandTotal'));
     }
     public function deleteInvoiceItem(Request $request)
     {
