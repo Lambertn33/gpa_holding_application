@@ -20,7 +20,7 @@
                     ">
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="{{ url('/Images/LOGO.JPG') }}" alt="">
+                                <img src="{{ url('/Images/LOGO_LARGE.JPG') }}" alt="">
                             </div>
                             <div class="col-md-6">
                                 <span style="float: right;
@@ -82,6 +82,11 @@
                                 </span> @endif
                             </div>
                         </div>
+                        <div class="row" data-html2canvas-ignore="true">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary float-right" id="print">PRINT</button>
+                            </div>
+                        </div>
                         <div class="row" style="margin-top:50px">
                             <div class="col-md-12">
                                 <span style='font-family: "Times New Roman", Times, serif;font-weight:lighter;'>Reference to your Purchasing Order, GPA Holdings Ltd invoices the following:</span>
@@ -111,7 +116,7 @@
                                         @endforeach
                                         <tr>
                                             <td colspan="5">Sub total (Vat Excl)</td>
-                                            <td><b>{{ $invoiceToPrint->products->sum('pivot.total_cost') }}</b></td>
+                                            <td><b>{{ $totalAmountWithoutEightheenPercent }}</b></td>
                                         </tr>
                                         <tr>
                                             <td colspan="5">VAT (18%)</td>
@@ -119,7 +124,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="5">Grand Total ( VAT INCL)</td>
-                                            <td><b>{{ $grandTotal }}</b></td>
+                                            <td><b>{{ $invoiceToPrint->products->sum('pivot.total_cost') }}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -169,40 +174,36 @@
 
                             </div>
                         </div>
-                        <div class="row" style="margin-top:50px;border:2px solid grey; border-radius:15px;padding:7px;">
-                            <div class="col-md-6">
-                                <span style="font-weight:lighter;float:left;">
-                                    PO Box: 5007 Kigali-Rwanda
-                                 </span><br>
-                                <span style="font-weight:lighter;float:left;">
-                                    Kigali Heights 6th floor
-                                 </span><br>
-                                <span style="font-weight:lighter;float:left;">
-                                    Phones: +250 789905054
-                                 </span>
-                            </div>
-                            <div class="col-md-6">
-                                <span style="font-weight:lighter;float:right;">
-                                    gpaholdingsltd@gmail.com
-                                 </span><br>
-                                <span style="font-weight:lighter;float:right;">
-                                    Website: www.gpaholdingsltd.com
-                                 </span><br>
-                                <span style="font-weight:lighter;float:right;">
-                                    TIN/VAT: 107707503
-                                 </span>
+                        <div class="container">
+                            <div class="row" style="margin-top:50px;border:2px solid grey; border-radius:15px;padding:7px;">
+                                <div class="col-md-6">
+                                    <span style="font-weight:lighter;float:left;">
+                                        PO Box: 5007 Kigali-Rwanda
+                                     </span><br>
+                                    <span style="font-weight:lighter;float:left;">
+                                        Kigali Heights 6th floor
+                                     </span><br>
+                                    <span style="font-weight:lighter;float:left;">
+                                        Phones: +250 789905054
+                                     </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span style="font-weight:lighter;float:right;">
+                                        gpaholdingsltd@gmail.com
+                                     </span><br>
+                                    <span style="font-weight:lighter;float:right;">
+                                        Website: www.gpaholdingsltd.com
+                                     </span><br>
+                                    <span style="font-weight:lighter;float:right;">
+                                        TIN/VAT: 107707503
+                                     </span>
 
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn btn-primary float-right" id="print">PRINT</button>
-                    </div>
-                </div>
-                <br><br>
             </div>
         </div>
     </div>
@@ -215,7 +216,14 @@
     window.onload = function() {
         document.getElementById('print').addEventListener('click', () => {
             let card = this.document.getElementById('card')
-            html2pdf().from(card).save();
+            var opt = {
+                margin:       0,
+                filename:     'invoice.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale:1 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+               };
+            html2pdf().from(card).set(opt).save();
         })
     }
 </script>

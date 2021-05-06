@@ -122,6 +122,7 @@ Route::post('/home/receipts/deleteReceiptItem','ReceiptController@deleteReceiptI
 Route::get('/home/receipts/{id}/confirmReceipt','ReceiptController@confirmReceipt')->name('confirmReceipt');
 Route::get('/home/receipts/{id}/viewReceipt','ReceiptController@viewReceipt')->name('viewReceipt');
 Route::post('/home/receipts/addProductToExistingReceipt','ReceiptController@addProductToExistingReceipt')->name('addProductToExistingReceipt');
+Route::get('/home/receipts/{id}/getReceiptToPrint/print','ReceiptController@printPDF')->name('printReceiptPDF');
 });
 
 

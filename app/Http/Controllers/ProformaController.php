@@ -211,7 +211,7 @@ class ProformaController extends Controller
          $clientTin = Client::where('id',$proformaToPrint->client_id)->value('TIN');
          $totalAmount = $proformaToPrint->products->sum('pivot.total_cost');
          $eighteenPercent = round(($totalAmount *18) /100);
-         $grandTotal = $totalAmount + $eighteenPercent;
-         return view('Dashboard.invoices.proforma.printProforma',compact('proformaToPrint','clientTin','eighteenPercent','grandTotal'));
+         $totalAmountWithoutEightheenPercent = $totalAmount - $eighteenPercent;
+         return view('Dashboard.invoices.proforma.printProforma',compact('proformaToPrint','clientTin','eighteenPercent','totalAmountWithoutEightheenPercent'));
     }
 }

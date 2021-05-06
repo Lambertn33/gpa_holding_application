@@ -166,8 +166,8 @@ class InvoiceController extends Controller
         $invoiceDueDate = date('Y-m-d',strtotime($invoiceCreatedDate. ' + 15 days'));
         $totalAmount = $invoiceToPrint->products->sum('pivot.total_cost');
         $eighteenPercent = round(($totalAmount *18) /100);
-        $grandTotal = $totalAmount + $eighteenPercent;
-        return view('Dashboard.invoices.printInvoice',compact('invoiceToPrint','clientTin','invoiceDueDate','eighteenPercent','grandTotal'));
+        $totalAmountWithoutEightheenPercent = $totalAmount - $eighteenPercent;
+        return view('Dashboard.invoices.printInvoice',compact('invoiceToPrint','clientTin','invoiceDueDate','eighteenPercent','totalAmountWithoutEightheenPercent'));
     }
     public function deleteInvoiceItem(Request $request)
     {

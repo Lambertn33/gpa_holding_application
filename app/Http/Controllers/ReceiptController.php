@@ -84,7 +84,7 @@ class ReceiptController extends Controller
         'unit_cost'=>$unitCost,
         'total_cost'=>$totalCost
         ));
-        return back()->with('success','invoice captured...add more if you want or confirm your invoice');
+        return back()->with('success','receipt captured...add more if you want or confirm your receipt');
     }
     public function deleteReceiptItem(Request $request)
     {
@@ -129,6 +129,16 @@ class ReceiptController extends Controller
         $receiptToView = Receipt::with('products')->find($id);
         $allProducts = Product::get();
         return view('Dashboard.invoices.receipts.view',compact('numberOfClients','allProducts','numberOfProducts','numberOfUsers','receiptToView'));
+    }
+    public function printPDF($id)
+    {
+        $receiptToPrint = Receipt::with('products')->find($id);
+        $clientTin = Client::where('client_Names',$receiptToPrint->client)->value('TIN');
+        $receiptCreatedDate = $receiptToPrint->date;
+        $totalAmount = $receiptToPrint->products->sum('pivot.total_cost');
+        $eighteenPercent = round(($totalAmount *18) /100);
+        $totalAmountWithoutEightheenPercent = $totalAmount - $eighteenPercent;
+        return view('Dashboard.invoices.receipts.printReceipt',compact('receiptToPrint','clientTin','eighteenPercent','totalAmountWithoutEightheenPercent'));
     }
     public function addProductToExistingReceipt(Request $request)
     {

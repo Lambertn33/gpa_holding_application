@@ -50,7 +50,7 @@
                                 <td>
                                     <a href="{{ route('viewReceipt',$item->id) }}" class="btn btn-primary btn-sm">view<a>
                                     <a href="{{ route('deleteReceipt',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
-                                    <button  class="btn btn-success btn-sm">print<a>
+                                        <a href="{{ route('printReceiptPDF',$item->id) }}" target="_blank" class="btn btn-info btn-sm">print<a>
                                 </td>
                             </tr>
                             @endforeach

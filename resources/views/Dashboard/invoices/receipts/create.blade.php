@@ -5,7 +5,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <div class="card-title text-lg text-blue-500">{{ $clientToMakeReceipt->client }} Invoice </div>
+                <div class="card-title text-lg text-blue-500">{{ $clientToMakeReceipt->client }} Receipt </div>
 
             </div>
             <div class="card-body pt-0">

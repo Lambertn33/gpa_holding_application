@@ -58,15 +58,14 @@
             <div class="hor-header header">
                 <div class="container">
                     <div class="d-flex">
+
                         <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
+                        <a class="header-brand" href="">
+                            <img src="/Images/LOGO.JPG" width="20%" class="header-brand-img desktop-logo " alt="mixo logo">
+                        </a>
                         <div class="d-flex header-right ml-auto">
 
                             <!-- Mobile-search -->
-                            <div class="dropdown header-fullscreen">
-                                <a class="nav-link icon full-screen-link" id="fullscreen-button">
-                                    <i class="bx bx-expand"></i>
-                                </a>
-                            </div>
                             <!-- Fullscreen -->
 
                             <!-- Notification -->
@@ -84,9 +83,6 @@
                                             <p class="mb-1 fs-13 text-white-50">{{ Auth::user()->email }}</p>
                                         </div>
                                     </div>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="dropdown-icon bx bx-help-circle"></i> Need help?
-                                    </a>
                                     <a class="dropdown-item border-bottom-0" href=""
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="dropdown-icon bx bx-log-out"></i> Sign out
