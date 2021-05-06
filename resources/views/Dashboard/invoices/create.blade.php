@@ -27,6 +27,7 @@
                     </div>
                     <div class="row">
                         <input type="hidden" name="clientId" value="{{ $clientToMakeInvoice->id }}">
+                        <input type="hidden" name="remainingStock" id="remainingStock">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label"> Client</label>
@@ -72,6 +73,7 @@
                                 <input type="number" readonly class="form-control border-2" id="unit_cost" name="unitCost" value="{{ old('unitCost') }}">
                             </div>
                          </div>
+                         <span class="text-danger" style="margin-left:10px" id="remainingQuantity"></span>
                          <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Total Cost</label>
@@ -160,6 +162,18 @@
                 $('#total_cost').val(result)
                }
            })
+           $.ajax({
+               url:"{{ route('checkStockAvailability') }}",
+               type:"POST",
+               data:{
+               _token:token,
+               productId:productId
+               },
+               success:function(result){
+                $('#remainingQuantity').html('remaining quantity ' + result)
+                $('#remainingStock').val(result)
+               }
+           })
 
         })
         $('#quantity').on('input',function(){
@@ -168,6 +182,5 @@
             var total = parseInt(quantity * unit_price)
             $('#total_cost').val(total)
         })
-
     })
 </script>

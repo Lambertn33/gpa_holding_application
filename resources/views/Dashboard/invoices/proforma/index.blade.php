@@ -105,7 +105,7 @@
                                     <a href="{{ route('viewProforma',$item->id) }}" class="btn btn-primary btn-sm">view<a>
                                     <a href="{{ route('deleteProforma',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
                                      <a href="{{ route('changeProformaToInvoice',$item->id) }}" class="btn btn-warning btn-sm">Make Invoice<a>
-                                     <button onclick="printPDF()" class="btn btn-success btn-sm">print<a>
+                                     <a href="{{ route('printProformaPDF',$item->id) }}" target="_blank" class="btn btn-info btn-sm">print<a>
 
                                 </td>
                             </tr>

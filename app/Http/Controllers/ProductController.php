@@ -26,6 +26,9 @@ class ProductController extends Controller
         $numberOfProducts = Product::count();
         $numberOfClients = Client::count();
         $numberOfUsers = User::count();
+        if(Category::count() == 0){
+            return back()->with('danger','please record categories first');
+        }
         return view('Dashboard.products.create',compact('numberOfClients','numberOfProducts','allCategories','numberOfUsers'));
     }
     public function NewProductRegistration(Request $request)
@@ -42,8 +45,8 @@ class ProductController extends Controller
            'id'=> Str::uuid()->toString(),
            'name'=>$productName,
            'details'=>$productDetails,
-        'category_id'=>$productCategory,
-        'price'=>$productPrice
+           'category_id'=>$productCategory,
+           'price'=>$productPrice
         ]);
         if($newProduct){
             return redirect()->route('getAllProducts')->with('success','New Product Registered Successfully');

@@ -46,10 +46,6 @@
                                  </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label"> Quantity</label>
-                                <input type="text" class="form-control border-2" name="stockQuantity" value="{{ $stockToEdit->quantity }}">
-                            </div>
-                            <div class="form-group">
                                 <label class="form-label">Enter Buying Price</label>
                                 <input type="text" class="form-control border-2" name="stockBuyingPrice" value="{{ $stockToEdit->buying_price }}">
                             </div>

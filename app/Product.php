@@ -27,4 +27,8 @@ class Product extends Model
     protected $casts = [
         'id' => 'string'
     ];
+    public function getSellingPrice()
+    {
+       return $this->price;
+    }
 }

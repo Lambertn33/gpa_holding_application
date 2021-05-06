@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Print Invoice</title>
+    <title>Print Receipt</title>
 </head>
 
 <body>
@@ -22,28 +22,6 @@
                             <div class="col-md-6">
                                 <img src="{{ url('/Images/LOGO_LARGE.JPG') }}" alt="">
                             </div>
-                            <div class="col-md-6">
-                                <span style="float: right;
-                                 font-size:23px;
-                                 font-weight:lighter
-                                 ">GPA HOLDINGS Ltd</span>
-                                <br>
-                                <span style="float: right;
-                                 margin-left:60px;
-                                 font-size:15px;
-                                 font-weight:lighter
-                                ">
-                                    PO Box: 5007 Kigali-Rwanda
-                                 </span>
-                                <br>
-                                <span style="float: right;
-                                 margin-left:45px;
-                                 font-size:15px;
-                                 font-weight:lighter
-                                ">
-                                Phones: +250 789905054
-                                 </span>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -53,33 +31,18 @@
                                  8px solid #000;
                                 ">
                                     <div style="margin-left:6px">
-                                        <span style="font-size:15px">INVOICE TO:</span>
+                                        <span style="font-size:15px">RECEIPT TO:</span>
                                         <br>
                                         <span style="font-size:20px;font-weight:lighter">
-                                        <b>{{ $invoiceToPrint->client }}</b>
-                                    </span>
-                                        <br>
-                                        <span style="font-size:20px;font-weight:lighter">
-                                       TIN: <b>{{ $clientTin }}</b>
-                                    </span>
+                                        <b>{{ $receiptToPrint->client }}</b>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <span style="float:right;font-weight:lighter">
-                                  Date of Invoice: {{ $invoiceToPrint->date }}
+                                  Date: {{ $receiptToPrint->date }}
                               </span>
-                                <br>
-                                <span style="float:right;font-weight:lighter">
-                                  Due date: {{ $invoiceDueDate }}
-                              </span>
-                                <br> @if($invoiceToPrint->status == "NOT PAID")
-                                <span style="float:right" class="text-danger">
-                                    <b>Status: Pending</b>
-                                </span> @else
-                                <span style="float:right" class="text-success">
-                                    <b>Status: Paid</b>
-                                </span> @endif
                             </div>
                         </div>
                         <div class="row" data-html2canvas-ignore="true">
@@ -89,8 +52,6 @@
                         </div>
                         <div class="row" style="margin-top:50px">
                             <div class="col-md-12">
-                                <span style='font-family: "Times New Roman", Times, serif;font-weight:lighter;'>Reference to your Purchasing Order, GPA Holdings Ltd invoices the following:</span>
-                                <br>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -103,7 +64,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $counter = 1 ?> @foreach ($invoiceToPrint->products as $product)
+                                        <?php $counter = 1 ?> @foreach ($receiptToPrint->products as $product)
                                         <tr>
                                             <td>{{ $counter }}</td>
                                             <?php $counter++ ?>
@@ -124,7 +85,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="5">Grand Total ( VAT INCL)</td>
-                                            <td><b>{{ $invoiceToPrint->products->sum('pivot.total_cost') }}</b></td>
+                                            <td><b>{{ $receiptToPrint->products->sum('pivot.total_cost') }}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -132,41 +93,14 @@
                         </div>
                         <div class="row" style="margin-top:50px">
                             <div class="col-md-6">
-                                <div style="border:2px solid #000;
-                                 padding-top:5px;
-                                 padding-left:20px;
-                                 border-radius:15px;
-                                ">
-                                    <span style="font-weight:lighter;">
-                                       <b style="font-weight:bold"><u> Bank Details</u></b>
-                                    </span>
-                                    <br>
-                                    <span style="font-weight:lighter;">
-                                       <b style="font-weight:bold"> Branch Name:</b> Kigali Heights
-                                    </span>
-                                    <br>
-                                    <span style="font-weight:lighter;">
-                                       <b style="font-weight:bold"> Account Name:</b> GPA Holdings-AFRIKOA
-                                    </span>
-                                    <br>
-                                    <span style="font-weight:lighter;">
-                                       <b style="font-weight:bold"> Account Number:</b> 00261-06985608-50
-                                    </span>
-                                    <br>
-                                    <span style="font-weight:lighter;">
-                                       <b style="font-weight:bold"> Swift Code:</b> BKIGRWRW
-                                    </span>
-                                    <br>
-                                    <br>
 
-                                </div>
                             </div>
                             <div class="col-md-6">
                                 <span style="font-weight:bold;float:right;">
-                                    Angelique Umutoni
+                                    Bukuru Bukuru
                                  </span><br>
                                 <span style="font-weight:bold;float:right;">
-                                    Sales & Marketing Manager
+                                    Accountant
                                  </span><br>
                                 <span style="font-weight:bold;float:right;">
                                     GPA Holdings Ltd
@@ -218,7 +152,7 @@
             let card = this.document.getElementById('card')
             var opt = {
                 margin:       0,
-                filename:     'invoice.pdf',
+                filename:     'receipt.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale:1 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }

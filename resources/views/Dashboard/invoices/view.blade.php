@@ -3,6 +3,20 @@
 @section('content')
 <div class="row">
     <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg) @if(Session::has($msg))
+
+                <div class="alert alert-{{ $msg }}  alert-dismissible fade show" role="alert">
+                    {{ Session::get($msg) }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                         </button>
+                </div>
+                @endif
+               @endforeach
+            </div>
+        </div>
       <div class="card">
           <div class="card-header">
             <div class="card-title text-lg text-blue-500">View Invoice</div>
@@ -21,6 +35,7 @@
                                     <form action="{{ route('addProductToExistingInvoice') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="invoiceId" value="{{  $invoiceToView->id }}">
+                                        <input type="hidden" name="remainingStock" id="remainingStock">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="form-label">Select Product</label>
@@ -46,6 +61,7 @@
                                                 <input type="number"  min="1" id="quantity"  class="form-control border-2" name="quantity" value="{{ old('quantity') }}">
                                             </div>
                                          </div>
+                                         <span class="text-danger" style="margin-left:10px" id="remainingQuantity"></span>
                                          <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="form-label">Unit Cost</label>
@@ -117,6 +133,7 @@
                                 <th class="border-bottom-0">Action</th>
                             </tr>
                         </thead>
+                        <tbody>
 
                         <?php $counter = 1 ?>
                         @foreach ($invoiceToView->products as $product)
@@ -138,6 +155,7 @@
                                <td>
                          </tr>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -172,6 +190,24 @@
                 $('#submitBtn').prop("disabled",false);
                 $('#quantity').val(1)
                 $('#total_cost').val(result)
+               }
+           })
+           $.ajax({
+               url:"{{ route('checkStockAvailability') }}",
+               type:"POST",
+               data:{
+               _token:token,
+               productId:productId
+               },
+               success:function(result){
+                if(result == 0){
+                    $('#remainingQuantity').html('remaining quantity ' + result)
+                    $('#quantity').prop("disabled",true);
+                     $('#submitBtn').prop("disabled",true);
+                }else{
+                    $('#remainingQuantity').html('remaining quantity ' + result)
+                    $('#remainingStock').val(result)
+                }
                }
            })
 

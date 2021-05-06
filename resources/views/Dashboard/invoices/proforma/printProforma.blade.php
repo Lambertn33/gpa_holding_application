@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Print Invoice</title>
+    <title>Print Proforma</title>
 </head>
-
 <body>
     <div class="container">
         <div class="row">
@@ -53,10 +51,10 @@
                                  8px solid #000;
                                 ">
                                     <div style="margin-left:6px">
-                                        <span style="font-size:15px">INVOICE TO:</span>
+                                        <span style="font-size:15px">PROFORMA TO:</span>
                                         <br>
                                         <span style="font-size:20px;font-weight:lighter">
-                                        <b>{{ $invoiceToPrint->client }}</b>
+                                        <b>{{ $proformaToPrint->client->client_Names }}</b>
                                     </span>
                                         <br>
                                         <span style="font-size:20px;font-weight:lighter">
@@ -67,19 +65,9 @@
                             </div>
                             <div class="col-md-6">
                                 <span style="float:right;font-weight:lighter">
-                                  Date of Invoice: {{ $invoiceToPrint->date }}
+                                  Date of Issue: {{ $proformaToPrint->date }}
                               </span>
                                 <br>
-                                <span style="float:right;font-weight:lighter">
-                                  Due date: {{ $invoiceDueDate }}
-                              </span>
-                                <br> @if($invoiceToPrint->status == "NOT PAID")
-                                <span style="float:right" class="text-danger">
-                                    <b>Status: Pending</b>
-                                </span> @else
-                                <span style="float:right" class="text-success">
-                                    <b>Status: Paid</b>
-                                </span> @endif
                             </div>
                         </div>
                         <div class="row" data-html2canvas-ignore="true">
@@ -89,7 +77,6 @@
                         </div>
                         <div class="row" style="margin-top:50px">
                             <div class="col-md-12">
-                                <span style='font-family: "Times New Roman", Times, serif;font-weight:lighter;'>Reference to your Purchasing Order, GPA Holdings Ltd invoices the following:</span>
                                 <br>
                                 <table class="table table-bordered">
                                     <thead>
@@ -103,7 +90,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $counter = 1 ?> @foreach ($invoiceToPrint->products as $product)
+                                        <?php $counter = 1 ?> @foreach ($proformaToPrint->products as $product)
                                         <tr>
                                             <td>{{ $counter }}</td>
                                             <?php $counter++ ?>
@@ -124,7 +111,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="5">Grand Total ( VAT INCL)</td>
-                                            <td><b>{{ $invoiceToPrint->products->sum('pivot.total_cost') }}</b></td>
+                                            <td><b>{{ $proformaToPrint->products->sum('pivot.total_cost') }}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -174,31 +161,29 @@
 
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="row" style="margin-top:50px;border:2px solid grey; border-radius:15px;padding:7px;">
-                                <div class="col-md-6">
-                                    <span style="font-weight:lighter;float:left;">
-                                        PO Box: 5007 Kigali-Rwanda
-                                     </span><br>
-                                    <span style="font-weight:lighter;float:left;">
-                                        Kigali Heights 6th floor
-                                     </span><br>
-                                    <span style="font-weight:lighter;float:left;">
-                                        Phones: +250 789905054
-                                     </span>
-                                </div>
-                                <div class="col-md-6">
-                                    <span style="font-weight:lighter;float:right;">
-                                        gpaholdingsltd@gmail.com
-                                     </span><br>
-                                    <span style="font-weight:lighter;float:right;">
-                                        Website: www.gpaholdingsltd.com
-                                     </span><br>
-                                    <span style="font-weight:lighter;float:right;">
-                                        TIN/VAT: 107707503
-                                     </span>
+                        <div class="row" style="margin-top:50px;border:2px solid grey; border-radius:15px;padding:7px;">
+                            <div class="col-md-6">
+                                <span style="font-weight:lighter;float:left;">
+                                    PO Box: 5007 Kigali-Rwanda
+                                 </span><br>
+                                <span style="font-weight:lighter;float:left;">
+                                    Kigali Heights 6th floor
+                                 </span><br>
+                                <span style="font-weight:lighter;float:left;">
+                                    Phones: +250 789905054
+                                 </span>
+                            </div>
+                            <div class="col-md-6">
+                                <span style="font-weight:lighter;float:right;">
+                                    gpaholdingsltd@gmail.com
+                                 </span><br>
+                                <span style="font-weight:lighter;float:right;">
+                                    Website: www.gpaholdingsltd.com
+                                 </span><br>
+                                <span style="font-weight:lighter;float:right;">
+                                    TIN/VAT: 107707503
+                                 </span>
 
-                                </div>
                             </div>
                         </div>
 
@@ -213,12 +198,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <script>
-    window.onload = function() {
+     window.onload = function() {
         document.getElementById('print').addEventListener('click', () => {
             let card = this.document.getElementById('card')
             var opt = {
                 margin:       0,
-                filename:     'invoice.pdf',
+                filename:     'proforma.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale:1 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -227,5 +212,4 @@
         })
     }
 </script>
-
 </html>

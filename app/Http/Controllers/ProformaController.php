@@ -205,4 +205,13 @@ class ProformaController extends Controller
             return back();
         }
     }
+    public function printPDF($id)
+    {
+         $proformaToPrint = Proforma::with('products')->with('client')->find($id);
+         $clientTin = Client::where('id',$proformaToPrint->client_id)->value('TIN');
+         $totalAmount = $proformaToPrint->products->sum('pivot.total_cost');
+         $eighteenPercent = round(($totalAmount *18) /100);
+         $totalAmountWithoutEightheenPercent = $totalAmount - $eighteenPercent;
+         return view('Dashboard.invoices.proforma.printProforma',compact('proformaToPrint','clientTin','eighteenPercent','totalAmountWithoutEightheenPercent'));
+    }
 }

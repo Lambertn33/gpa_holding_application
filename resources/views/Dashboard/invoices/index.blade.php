@@ -17,7 +17,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 col-lg-12">
-        <div class="card">
+        <div class="card" id="card">
             <div class="card-header">
                 <div class="card-title text-lg text-blue-500">All Available Invoices</div>
 
@@ -105,8 +105,8 @@
 
                                    @endif
                                   <a href="{{ route('viewInvoice',$item->id) }}" class="btn btn-primary btn-sm">view<a>
-                                  <a href="{{ route('printPDF',$item->id) }}" class="btn btn-warning btn-sm">print<a>
-                                  <a href="{{ route('deleteInvoice',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
+                                      <a href="{{ route('deleteInvoice',$item->id) }}" class="btn btn-danger btn-sm">delete<a>
+                                      <a href="{{ route('printInvoicePDF',$item->id) }}" target="_blank" class="btn btn-warning btn-sm">print<a>
                                 </td>
                             </tr>
                             @endforeach
