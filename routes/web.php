@@ -68,6 +68,8 @@ Route::post('/home/stock/create','StockController@NewStockRegistration')->name('
 Route::get('/home/stock/{id}/edit','StockController@getStockEditPage')->name('stockEditPage');
 Route::put('/home/stock/{id}/edit','StockController@StockUpdate')->name('stockUpdate');
 Route::get('/home/stock/{id}/delete','StockController@stockDeletion')->name('stockDeletion');
+Route::post('/home/stock/checkIfProductExistsInStock','StockController@checkIfProductExistsInStock')->name('checkIfProductExistsInStock');
+Route::get('/home/stock/{id}/checkStockOut','StockController@checkStockOut')->name('checkStockOut');
 
 //suppliers Route
 Route::get('/home/suppliers','SupplierController@getSuppliersPage')->name('getAllSuppliers');
@@ -82,6 +84,7 @@ Route::get('/home/invoices','InvoiceController@getInvoicesPage')->name('getAllIn
 Route::get('/home/invoices/clientSelection','InvoiceController@getClientToMakeInvoice')->name('getClientToMakeInvoice');
 Route::post('/home/invoices/clientSelection','InvoiceController@saveClientToMakeInvoice')->name('saveClientToMakeInvoice');
 Route::post('/home/invoices/productSelection','InvoiceController@saveProductToMakeInvoice')->name('saveProductToMakeInvoice');
+Route::post('/home/invoices/productAvailability','InvoiceController@checkStockAvailability')->name('checkStockAvailability');
 Route::get('/home/invoices/create','InvoiceController@getNewInvoiceRegistrationPage')->name('getNewInvoiceRegistrationPage');
 Route::post('/home/invoices/create','InvoiceController@NewInvoiceRegistration')->name('NewInvoiceRegistration');
 Route::get('/home/invoices/{id}/confirmInvoice','InvoiceController@confirmInvoice')->name('confirmInvoice');
@@ -91,6 +94,7 @@ Route::get('/home/invoices/{id}/deleteInvoice','InvoiceController@deleteInvoice'
 Route::post('/home/invoices/addProductToExistingInvoice','InvoiceController@addProductToExistingInvoice')->name('addProductToExistingInvoice');
 Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceItem')->name('deleteInvoiceItem');
 Route::get('/home/invoices/{id}/getInvoiceToPrint/print','InvoiceController@printPDF')->name('printInvoicePDF');
+
 
 
 //Proforma Route

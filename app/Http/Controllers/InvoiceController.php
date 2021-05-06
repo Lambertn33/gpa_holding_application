@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Invoice;
 use App\Client;
 use App\User;
+use App\Stock;
 use App\Product;
 use DateTime;
 use Illuminate\Support\Facades\Session;
@@ -56,6 +57,15 @@ class InvoiceController extends Controller
     $product = Product::where('id',$request->productId)->first();
     return $product->price;
     }
+    public function checkStockAvailability(Request $request)
+    {
+        $product = Product::where('id',$request->productId)->value('name');
+        $remainingQuantity = Stock::where('product',$product)->value('remainingQuantity');
+        if(!$remainingQuantity){
+            $remainingQuantity = 0;
+        }
+        return $remainingQuantity;
+    }
     public function getNewInvoiceRegistrationPage(Request $request)
     {
         $numberOfClients = Client::count();
@@ -69,17 +79,32 @@ class InvoiceController extends Controller
     }
     public function NewInvoiceRegistration(Request $request)
     {
+        $remainingStock = $request->remainingStock;
         $product = $request->product;
         $description = $request->description;
         $quantity = $request->quantity;
         $unitCost = $request->unitCost;
         $totalCost = $request->totalCost;
         $clientToMakeInvoice = $request->session()->get('clientToMakeInvoice');
+
+        if($remainingStock == 0)
+        {
+            return back()->withInput()->with('danger','The selected product is not available in stock');
+        }
+        $checkIfInvoiceHasThisProduct = Invoice::where('id',$clientToMakeInvoice->id)
+        ->whereHas('products',function($q) use($product){
+           $q->where('product_id',$product);
+        })->count();
+         if($checkIfInvoiceHasThisProduct > 0){
+
+             return back()->withInput()->with('danger','This Product is already recorded to this invoice..delete it and re-create it');
+         }
         if($quantity == 0){
             return back()->withInput()->with('danger','Invalid quantity or Unit Cost');
-
         }
-
+        if($quantity > $remainingStock){
+            return back()->withInput()->with('danger','The remaining stock available for this product is ' . $remainingStock .'');
+        }
         $clientToMakeInvoice->products()->attach($product,array(
         'invoice_product_id'=>Str::uuid(),
         'description'=>$description,
@@ -87,6 +112,11 @@ class InvoiceController extends Controller
         'unit_cost'=>$unitCost,
         'total_cost'=>$totalCost
         ));
+        $productName = Product::where('id',$product)->value('name');
+        $stockToUpdate = Stock::where('product',$productName);
+        $updateQuery = $stockToUpdate->update([
+            'remainingQuantity'=>$stockToUpdate->value('remainingQuantity') - $quantity
+        ]);
         return back()->with('success','invoice captured...add more if you want or confirm your invoice');
     }
     public function confirmInvoice($id , Request $request)
@@ -115,12 +145,23 @@ class InvoiceController extends Controller
     public function addProductToExistingInvoice(Request $request)
     {
       $invoiceToAddProduct = Invoice::with('products')->where('id',$request->invoiceId)->first();
-      //return $request->all();
       $product = $request->product;
+      $remainingStock = $request->remainingStock;
       $description = $request->description;
       $quantity = $request->quantity;
       $unitCost = $request->unitCost;
       $totalCost = $request->totalCost;
+      $checkIfInvoiceHasThisProduct = Invoice::where('id',$invoiceToAddProduct->id)
+        ->whereHas('products',function($q) use($product){
+           $q->where('product_id',$product);
+        })->count();
+         if($checkIfInvoiceHasThisProduct > 0){
+
+             return back()->withInput()->with('danger','This Product is already recorded to this invoice..delete it and re-create it');
+         }
+      if($quantity > $remainingStock){
+        return back()->withInput()->with('danger','The remaining stock available for this product is ' . $remainingStock .'');
+    }
       $invoiceToAddProduct->products()->attach($product,array(
         'invoice_product_id'=>Str::uuid(),
         'description'=>$description,
@@ -128,6 +169,11 @@ class InvoiceController extends Controller
         'unit_cost'=>$unitCost,
         'total_cost'=>$totalCost
         ));
+        $productName = Product::where('id',$product)->value('name');
+        $stockToUpdate = Stock::where('product',$productName);
+        $updateQuery = $stockToUpdate->update([
+            'remainingQuantity'=>$stockToUpdate->value('remainingQuantity') - $quantity
+        ]);
        return back();
 
     }
@@ -172,9 +218,18 @@ class InvoiceController extends Controller
     public function deleteInvoiceItem(Request $request)
     {
        $productToDetach = Product::find($request->productId);
+       $productName = Product::where('id',$request->productId)->value('name');
+       $stockToUpdate = Stock::where('product',$productName);
        $invoice = Invoice::find($request->invoiceId);
-       if($invoice->products()->detach($productToDetach)){
-           return back()->with('success','product removed successfully');
+       $productToDetachQuantity = Invoice::find($request->invoiceId)->products()->wherePivot('product_id',$request->productId)->value('quantity');
+       $updateQuery = $stockToUpdate->update([
+        'remainingQuantity'=>$stockToUpdate->value('remainingQuantity') + $productToDetachQuantity
+       ]);
+       if($updateQuery){
+        if($invoice->products()->detach($productToDetach)){
+            return back()->with('success','product removed successfully');
+        }
        }
     }
+
 }

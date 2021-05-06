@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Product;
 
 class Stock extends Model
 {
@@ -11,12 +12,16 @@ class Stock extends Model
       'id',
       'product',
       'supplier',
-      'quantity',
+      'remainingQuantity',
       'buying_price',
       'selling_price',
       'date',
       'entry_by'
     ];
+    public function stock_records()
+    {
+        return $this->hasMany('App\Stock_Record');
+    }
     protected $casts = [
         'id' => 'string',
     ];

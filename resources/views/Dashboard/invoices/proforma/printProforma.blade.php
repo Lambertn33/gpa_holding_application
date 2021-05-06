@@ -77,7 +77,6 @@
                         </div>
                         <div class="row" style="margin-top:50px">
                             <div class="col-md-12">
-                                <span style='font-family: "Times New Roman", Times, serif;font-weight:lighter;'>Reference to your Purchasing Order, GPA Holdings Ltd invoices the following:</span>
                                 <br>
                                 <table class="table table-bordered">
                                     <thead>
