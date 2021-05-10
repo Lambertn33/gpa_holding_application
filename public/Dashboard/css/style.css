@@ -1250,8 +1250,7 @@ mark,
 }
 
 .cover-image {
-    background-size: cover !important;
-    width: 100%;
+    width: 80%;
     position: relative;
 }
 
@@ -4847,11 +4846,11 @@ button,
 }
 
 .card-aside-column {
-    min-width: 5rem;
+    min-width: 3rem;
     width: 30%;
     -ms-flex: 0 0 30%;
     flex: 0 0 30%;
-    background: no-repeat center/cover;
+    background: no-repeat center;
 }
 
 .card-value {
