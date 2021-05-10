@@ -126,13 +126,15 @@ class StockController extends Controller
         $numberOfClients = Client::count();
         $numberOfProducts = Product::count();
         $numberOfUsers = User::count();
-        $stock = Stock::find($id)->value('product');
-        $product = Product::where('name',$stock)->value('id');
+        $stock = Stock::find($id);
+        $productToView = Product::where('name',$stock->product)->first();
+        $product = Product::where('name',$stock->product)->value('id');
         $allInvoicesContainingThisProduct = Invoice::with('products')
         ->whereHas('products',function($q) use($product){
            $q->where('product_id',$product);
         })->get();
-        return view('Dashboard.stock.stockOut',compact('allInvoicesContainingThisProduct','stock','numberOfClients','numberOfProducts','numberOfUsers'));
+
+        return view('Dashboard.stock.stockOut',compact('productToView','allInvoicesContainingThisProduct','stock','numberOfClients','numberOfProducts','numberOfUsers'));
     }
     public function StockUpdate(Request $request , $id)
     {

@@ -6,7 +6,7 @@
     <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title text-lg text-blue-500">Stock Out for {{ $stock }}</div>
+                <div class="card-title text-lg text-blue-500">Stock Out for {{ $stock->product }}</div>
 
             </div>
             <div class="card-body pt-0">
@@ -22,14 +22,15 @@
                         <tbody>
                             @foreach ($allInvoicesContainingThisProduct as $item)
                             <tr>
-                              @foreach ($item->products as $product)
-                              <td>{{$product->pivot->quantity }}</td>
+                              @foreach ($item->products as $product )
+                                  @if( $product->id == $productToView->id  )
+                                  <td>{{ $product->pivot->quantity }}</td>
+                                  @endif
                               @endforeach
                                <td>{{$item->client }}</td>
                                <td>{{$item->date }}</td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     <a href="{{ route('getAllStock') }}" class="btn btn-primary">Back</a>

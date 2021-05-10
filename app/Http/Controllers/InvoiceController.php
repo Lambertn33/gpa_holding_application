@@ -181,9 +181,17 @@ class InvoiceController extends Controller
     {
         $invoiceToDelete = Invoice::with('products')->find($id);
         if($invoiceToDelete->products()->count() > 0){
-            $invoiceToDelete->products()->detach();
-            $invoiceToDelete->delete();
-            return redirect()->route('getAllInvoices')->with('success','Invoice deleted successfully');
+            foreach($invoiceToDelete->products as $product){
+                $stockQuantity = Stock::where('product',$product->name)->value('remainingQuantity');
+                $stockToRestoreQuantity = Stock::where('product',$product->name)->update([
+                    'remainingQuantity'=> $product->pivot->quantity + $stockQuantity
+                    ]);
+                    if($stockToRestoreQuantity){
+                        $invoiceToDelete->products()->detach();
+                        $invoiceToDelete->delete();
+                    }
+                }
+                return redirect()->route('getAllInvoices')->with('success','Invoice deleted successfully');
         }else{
             $invoiceToDelete->delete();
             return redirect()->route('getAllInvoices')->with('success','Invoice deleted successfully');

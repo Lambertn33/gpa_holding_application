@@ -158,9 +158,9 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li aria-haspopup="true">
+                                    {{-- <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-book-open hor-icon"></i>Contracts</a>
-                                    </li>
+                                    </li> --}}
                                     <li aria-haspopup="true">
                                         <a href="#" class="sub-icon"><i class="bx bx-store hor-icon"></i>Stock</a>
                                         <div class="horizontal-megamenu clearfix">
@@ -185,9 +185,9 @@
                                     <li aria-haspopup="true">
                                         <a  href="{{ route('getAllUsers') }}"><i class="bx bx-user hor-icon"></i>Users</a>
                                     </li>
-                                    <li aria-haspopup="true">
+                                    {{-- <li aria-haspopup="true">
                                         <a  href=""><i class="bx bx-customize hor-icon"></i>Settings</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                     @break
                                 @case("User")
