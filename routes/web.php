@@ -106,6 +106,8 @@ Route::post('/home/proformas/clientSelection','ProformaController@saveClientToMa
 Route::post('/home/proformas/productSelection','ProformaController@saveProductToMakeProforma')->name('saveProductToMakeProforma');
 Route::get('/home/proformas/create','ProformaController@getNewProformaRegistrationPage')->name('getNewProformaRegistrationPage');
 Route::post('/home/proformas/create','ProformaController@NewProformaRegistration')->name('NewProformaRegistration');
+Route::get('/home/proformas/reports','ProformaController@getProformasReportPeriodPage')->name('getProformasReportPeriodPage');
+Route::post('/home/proformas/reports','ProformaController@queryProformasReport')->name('queryProformasReport');
 Route::get('/home/proformas/{id}/confirmProforma','ProformaController@confirmProforma')->name('confirmProforma');
 Route::get('/home/proformas/{id}/viewProforma','ProformaController@viewProforma')->name('viewProforma');
 Route::put('/home/proformas/changeProformaStatus','ProformaController@changeProformaStatus')->name('changeProformaStatus');

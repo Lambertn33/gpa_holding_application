@@ -194,7 +194,7 @@
                                                                     <a  href="{{ route('getInvoicesReportPeriodPage') }}"><i class="bx bxs-report hor-icon"></i>Invoices</a>
                                                                 </li>
                                                                 <li aria-haspopup="true">
-                                                                    <a  href=""><i class="bx bxs-report hor-icon"></i>Proforma</a>
+                                                                    <a  href="{{ route('getProformasReportPeriodPage') }}"><i class="bx bxs-report hor-icon"></i>Proforma</a>
                                                                 </li>
                                                             </ul>
                                                         </div>

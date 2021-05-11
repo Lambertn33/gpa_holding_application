@@ -252,7 +252,7 @@ class InvoiceController extends Controller
        $month = $request->input('month');
        $startingDate = $request->input('startingDate');
        $endingDate = date('Y-m-d',strtotime($startingDate. ' + 7 days'));
-       if($year){
+       if($year && !$month){
            $invoiceToReport = Invoice::with('products')->whereYear('date',$year)->get();
         }elseif($year && $month){
            $invoiceToReport = Invoice::with('products')

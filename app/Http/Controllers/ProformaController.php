@@ -214,4 +214,32 @@ class ProformaController extends Controller
          $totalAmountWithoutEightheenPercent = $totalAmount - $eighteenPercent;
          return view('Dashboard.invoices.proforma.printProforma',compact('proformaToPrint','clientTin','eighteenPercent','totalAmountWithoutEightheenPercent'));
     }
+    public function getProformasReportPeriodPage()
+    {
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        return view('Dashboard.reports.proformas.periodSelection',compact('numberOfClients','numberOfProducts','numberOfUsers'));
+    }
+    public function queryProformasReport(Request $request)
+    {
+       $year = $request->input('year');
+       $month = $request->input('month');
+       $startingDate = $request->input('startingDate');
+       $endingDate = date('Y-m-d',strtotime($startingDate. ' + 7 days'));
+       if($year && !$month){
+           $proformaToReport = Proforma::with('products')->whereYear('date',$year)->get();
+        }elseif($year && $month){
+           $proformaToReport = Proforma::with('products')
+           ->whereYear('date',$year)
+           ->whereMonth('date',$month)
+           ->get();
+        }elseif(!$year && !$month && $startingDate){
+
+            $proformaToReport = Proforma::with('products')
+            ->whereBetween('date',[$startingDate,$endingDate])
+            ->get();
+        }
+        return view('Dashboard.reports.proformas.reportPage',compact('proformaToReport','year','month','startingDate','endingDate'));
+    }
 }
