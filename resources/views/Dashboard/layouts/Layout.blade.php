@@ -183,6 +183,27 @@
                                         </div>
                                     </li>
                                     <li aria-haspopup="true">
+                                        <a href="#" class="sub-icon"><i class="bx bxs-report hor-icon"></i>Reports</a>
+                                        <div class="horizontal-megamenu clearfix">
+                                            <div class="container">
+                                                <div class="mega-menubg">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-xs-3 link-list">
+                                                            <ul>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href="{{ route('getInvoicesReportPeriodPage') }}"><i class="bx bxs-report hor-icon"></i>Invoices</a>
+                                                                </li>
+                                                                <li aria-haspopup="true">
+                                                                    <a  href=""><i class="bx bxs-report hor-icon"></i>Proforma</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li aria-haspopup="true">
                                         <a  href="{{ route('getAllUsers') }}"><i class="bx bx-user hor-icon"></i>Users</a>
                                     </li>
                                     {{-- <li aria-haspopup="true">

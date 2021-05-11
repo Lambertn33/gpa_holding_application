@@ -94,6 +94,8 @@ Route::get('/home/invoices/{id}/deleteInvoice','InvoiceController@deleteInvoice'
 Route::post('/home/invoices/addProductToExistingInvoice','InvoiceController@addProductToExistingInvoice')->name('addProductToExistingInvoice');
 Route::post('/home/invoices/deleteInvoiceItem','InvoiceController@deleteInvoiceItem')->name('deleteInvoiceItem');
 Route::get('/home/invoices/{id}/getInvoiceToPrint/print','InvoiceController@printPDF')->name('printInvoicePDF');
+Route::get('/home/invoices/reports','InvoiceController@getInvoicesReportPeriodPage')->name('getInvoicesReportPeriodPage');
+Route::post('/home/invoices/reports','InvoiceController@queryInvoicesReport')->name('queryInvoicesReport');
 
 
 

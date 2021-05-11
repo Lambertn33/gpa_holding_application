@@ -239,5 +239,33 @@ class InvoiceController extends Controller
         }
        }
     }
+    public function getInvoicesReportPeriodPage()
+    {
+        $numberOfClients = Client::count();
+        $numberOfProducts = Product::count();
+        $numberOfUsers = User::count();
+        return view('Dashboard.reports.invoices.periodSelection',compact('numberOfClients','numberOfProducts','numberOfUsers'));
+    }
+    public function queryInvoicesReport(Request $request)
+    {
+       $year = $request->input('year');
+       $month = $request->input('month');
+       $startingDate = $request->input('startingDate');
+       $endingDate = date('Y-m-d',strtotime($startingDate. ' + 7 days'));
+       if($year){
+           $invoiceToReport = Invoice::with('products')->whereYear('date',$year)->get();
+        }elseif($year && $month){
+           $invoiceToReport = Invoice::with('products')
+           ->whereYear('date',$year)
+           ->whereMonth('date',$month)
+           ->get();
+        }elseif(!$year && !$month && $startingDate){
+
+            $invoiceToReport = Invoice::with('products')
+            ->whereBetween('date',[$startingDate,$endingDate])
+            ->get();
+        }
+        return view('Dashboard.reports.invoices.reportPage',compact('invoiceToReport','year','month','startingDate','endingDate'));
+    }
 
 }
