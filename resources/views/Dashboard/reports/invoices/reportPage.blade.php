@@ -70,7 +70,14 @@
                     $message = 'Invoices Report of the Period from '. $startingDate .' to '. $endingDate .'';
 
                      @endphp
-                      <h5 class="text-center">{{ $message }}</h5>
+                      <div class="row">
+                          <div class="col-md-3">
+                            <img src="{{ url('/Images/LOGO.JPG') }}" alt="">
+                          </div>
+                          <div class="col-md-9">
+                            <h5 class="text-center" style="margin-top:8px">{{ $message }}</h5>
+                          </div>
+                      </div>
                     </div>
                     <div class="card-body">
                         @if (count($invoiceToReport) > 0)

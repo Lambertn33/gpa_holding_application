@@ -47,7 +47,7 @@
 
             </div>
             <div class="card-body pt-0">
-                <form action="{{ route('queryInvoicesReport') }}" method="POST">
+                <form action="{{ route('queryInvoicesReport') }}" method="POST" target="_blank">
                     @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -69,7 +69,7 @@
 
             </div>
             <div class="card-body pt-0">
-                <form action="{{ route('queryInvoicesReport') }}" method="POST">
+                <form action="{{ route('queryInvoicesReport') }}" method="POST" target="_blank">
                     @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -113,7 +113,7 @@
             <div class="card-body pt-0">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ route('queryInvoicesReport') }}" method="POST">
+                        <form action="{{ route('queryInvoicesReport') }}" method="POST" target="_blank">
                             @csrf
                             <div class="form-group">
                                 <label class="form-label">Enter The Year</label>
