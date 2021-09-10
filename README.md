@@ -1,6 +1,6 @@
 ## About gpa holding apllication management
 
-Web Application that helps to record your proforma and invoices.
+Web Application that helps to record GPA Holdings (https://gpaholdingsltd.com) Documents(Invoices , Proformas , Receipts,...).
 
 ## Requirement
 - PHP: 7.4 +
